@@ -18,13 +18,17 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
     
     var displayItems = function(req){
         $.ajax({
-            url: 'http://localhost:8080/flsv2/GetItemStoreByX',
+            url: '/flsv2/GetItemStoreByX',
             type:'post',
             data: JSON.stringify(req),
             contentType:"application/json",
             dataType: "json",
             success: function(response) {
-                console.log(response);
+                if(response.returnCode == 0){
+                    $scope.$apply(function(){
+                        $scope.items = response.resList;
+                    });
+                }
             },
             error:function() {
             }

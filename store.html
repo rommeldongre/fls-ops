@@ -3,23 +3,26 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="text-center">#</th>
+                <th class="text-center">Id</th>
+                <th>Image</th>
                 <th>Title</th>
-                <th>Owner</th>
-                <th>Lease Term</th>
-                <th class="text-right">Lease Value</th>
+                <th class="text-center">Owner</th>
+                <th class="text-center">Lease Term</th>
+                <th class="text-center">Lease Value(INR)</th>
                 <th>Public Url</th>
-                <th class="text-right">Actions</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-center">1</td>
-                <td>Andrew Mike</td>
-                <td>Develop</td>
-                <td>2013</td>
-                <td class="text-right">&euro; 99,225</td>
-                <td class="td-actions text-right">
+            <tr ng-repeat="item in items">
+                <td class="text-center">{{item.itemId}}</td>
+                <td><img ng-src="{{(item.image === '' || item.image === null || item.image === NULL || item.image === 'null') ? 'images/imgplaceholder.png' : item.image}}" style="width:50px;"></td>
+                <td>{{item.title}}</td>
+                <td class="text-center">{{item.fullName}}</td>
+                <td class="text-center">{{item.leaseTerm}}</td>
+                <td class="text-center">{{item.leaseValue}}</td>
+                <td><a href="/flsv2/ItemDetails?uid={{item.uid}}">{{item.uid}}</a></td>
+                <td class="td-actions text-center">
                     <button type="button" rel="tooltip" title="View Profile" class="btn btn-info btn-simple btn-xs">
                         <i class="fa fa-user"></i>
                     </button>
