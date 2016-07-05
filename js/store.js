@@ -2,12 +2,17 @@ var storeApp = angular.module('indexApp');
 
 storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
     
-    var getItems = function(){
+    // setting the defalut page no as one
+    $scope.pageNo = 1;
+
+    var lastItemId = 0;
+
+    var getItems = function(token){
         var req = {
-            cookie: 0,
+            cookie: token,
             userId: null,
             category: null,
-            limit: 3,
+            limit: 10,
             lat: 0.0,
             lng: 0.0,
             searchString: ""
@@ -28,6 +33,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
                     $scope.$apply(function(){
                         $scope.items = response.resList;
                     });
+                    lastItemId = response.lastItemId;
                 }
             },
             error:function() {
@@ -35,6 +41,17 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
         });	
     }
     
-    getItems();
+    // calling the function initially when the file get loaded
+    getItems(lastItemId);
+
+    $scope.nextItems = function(){
+        $scope.items = [];
+        $scope.pageNo++;
+        getItems(lastItemId);
+    }
+
+    $scope.prevItems = function(){
+
+    }
     
 }]);
