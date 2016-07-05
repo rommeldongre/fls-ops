@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="indexApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,14 +10,22 @@
       
     <link rel="shortcut icon" href="images/fls-favicon.ico" type="image/x-icon">
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-1.11.3.min.js"></script>
+    <!-- Angularjs api -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-1.3.2.min.js"></script>
+    <!-- Angularjs api ends -->
+      
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.3.min.js"></script>  
     
-	<!-- Bootstrap -->
+    <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
       <link href="css/gsdk.css" rel="stylesheet" />
-	<link href='https://fonts.googleapis.com/css?family=Happy+Monkey' rel='stylesheet' type='text/css'>		
-	
+	<link href='https://fonts.googleapis.com/css?family=Happy+Monkey' rel='stylesheet' type='text/css'>	
+    
+	<script src="js/bootstrap.min.js"></script>
+      
 	<!--Loading Animation code CSS & JS Links  -->
 	<link href="css/animation.css" type="text/css" rel="stylesheet">
 	<script src="js/jquery-1.11.3.min.js"></script>
@@ -69,10 +77,10 @@
             <div class="col-sm-3 col-md-2">
                 
               <ul class="nav nav-sidebar">
-                <li><a href="#">Users</a></li>
-                <li><a href="#">Store</a></li>
-                <li><a href="#">Requests</a></li>
-                <li><a href="#">Leases</a></li>
+                <li><a href="#/users">Users</a></li>
+                <li><a href="#/store">Store</a></li>
+                <li><a href="#/requests">Requests</a></li>
+                <li><a href="#/leases">Leases</a></li>
               </ul>
               <hr/>
                 
@@ -158,58 +166,24 @@
             </div>
               
             <div class="col-sm-9 col-md-10 main">
-              <h3 class="page-header">Users</h3>
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                      <tr>
-                        <th class="text-center">#</th>
-                        <th>Name</th>
-                        <th>Job Position</th>
-                        <th>Since</th>
-                        <th class="text-right">Salary</th>
-                        <th class="text-right">Actions</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                        <td class="text-center">1</td>
-                        <td>Andrew Mike</td>
-                        <td>Develop</td>
-                        <td>2013</td>
-                        <td class="text-right">&euro; 99,225</td>
-                        <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="View Profile" class="btn btn-info btn-simple btn-xs">
-                                <i class="fa fa-user"></i>
-                            </button>
-                            <button type="button" rel="tooltip" title="Edit Profile" class="btn btn-success btn-simple btn-xs">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </td>
-                      </tr>
-                  </tbody>
-                </table>
-              </div>
+              <div ng-view></div>
             </div>
+              
           </div>
         </div>
       
       <script type="text/javascript">
           
           function start(){
-              
           }
           
       </script>
       
-      <!-- Angularjs api -->
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-      <script src="js/ui-bootstrap-tpls-1.3.2.min.js"></script>
-      <!-- Angularjs api ends -->
+      <script src="js/index.js"></script>
+      <script src="js/users.js"></script>
+      <script src="js/store.js"></script>
+      <script src="js/requests.js"></script>
+      <script src="js/leases.js"></script>
       
-      <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
