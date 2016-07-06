@@ -1,4 +1,15 @@
-<h3 class="page-header">Store</h3>
+<div class="row">
+    <span class="col-lg-6 col-md-6" style="font-size: xx-large;">Store</span>
+    <div class="col-lg-6 col-md-6 pull-right">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-keypress="($event.charCode==13)?searching():return" placeholder="Search here..." ng-model="search.string" >
+          <span class="input-group-btn">
+            <button class="btn btn-primary btn-fill" type="button" ng-click="searching()">Search</button>
+          </span>
+        </div>
+    </div>
+</div>
+<hr/>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>

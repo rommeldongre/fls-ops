@@ -6,6 +6,8 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
     $scope.pageNo = 1;
 
     var lastItemId = 0;
+    $scope.search = {};
+    $scope.search.string = "";
 
     var getItems = function(token){
         var req = {
@@ -15,7 +17,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
             limit: 10,
             lat: 0.0,
             lng: 0.0,
-            searchString: ""
+            searchString: $scope.search.string
         }
         
         displayItems(req);
@@ -34,6 +36,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
                         $scope.items = response.resList;
                     });
                     lastItemId = response.lastItemId;
+                    console.log(lastItemId);
                 }
             },
             error:function() {
@@ -51,7 +54,18 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
     }
 
     $scope.prevItems = function(){
+        var i = lastItemId - 20;
+        if(i >= 0){
+            $scope.items = [];
+            $scope.pageNo--;
+            getItems(i);
+        }
+    }
 
+    $scope.searching = function(){
+        $scope.items = [];
+        $scope.pageNo = 1;
+        getItems(0);
     }
     
 }]);
