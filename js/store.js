@@ -5,25 +5,35 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
     // setting the defalut page no as one
     $scope.pageNo = 1;
 
+    // saving the last item ids for page navigation in the ui
     var lastItemId = 0;
     var lastItemIds = [lastItemId];
+
+    // for search data
     $scope.search = {};
     $scope.search.string = "";
 
-    var limit = 10;
+    $scope.status = 'InStore';
+
+    $scope.changeStatus = function(s){
+        $scope.status = s;
+        $scope.items = [];
+        $scope.pageNo = 1;
+        lastItemIds = [0];
+        getItems(0);
+    }
 
     var getItems = function(token){
         var req = {
             cookie: token,
             userId: null,
             category: null,
-            limit: limit,
+            limit: 10,
             lat: 0.0,
             lng: 0.0,
             searchString: $scope.search.string,
-            itemStatus: ['InStore']
+            itemStatus: [$scope.status]
         }
-        
         displayItems(req);
     }
     
@@ -72,6 +82,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
     $scope.searching = function(){
         $scope.items = [];
         $scope.pageNo = 1;
+        lastItemIds = [0];
         getItems(0);
     }
     

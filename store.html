@@ -1,11 +1,20 @@
 <div class="row">
-    <span class="col-lg-6 col-md-6" style="font-size: xx-large;">Store</span>
-    <div class="col-lg-6 col-md-6 pull-right">
+    <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Store {{filter.status}}</span>
+    <div class="col-lg-8 col-md-8 pull-right">
         <div class="input-group">
-          <input type="text" class="form-control" ng-keypress="($event.charCode==13)?searching():return" placeholder="Search here..." ng-model="search.string" >
-          <span class="input-group-btn">
-            <button class="btn btn-primary btn-fill" type="button" ng-click="searching()">Search</button>
-          </span>
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{status}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="changeStatus('InStore')">Instore</a></li>
+                    <li><a href="" ng-click="changeStatus('Wished')">Wished</a></li>
+                    <li><a href="" ng-click="changeStatus('OnHold')">OnHold</a></li>
+                </ul>
+            </div>
+            <input type="text" class="form-control" ng-keypress="($event.charCode==13)?searching():return" placeholder="Search here..." ng-model="search.string" >
+            <span class="input-group-btn">
+                <button class="btn btn-primary btn-fill" type="button" ng-click="searching()">Search</button>
+            </span>
         </div>
     </div>
 </div>
