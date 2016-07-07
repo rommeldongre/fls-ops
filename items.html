@@ -49,11 +49,11 @@
                     <button type="button" rel="tooltip" title="Edit Profile" class="btn btn-success btn-simple btn-xs">
                         <i class="fa fa-edit"></i>
                     </button>
-                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                    <button type="button" rel="tooltip" title="Delete" class="btn btn-danger btn-simple btn-xs">
                         <i class="fa fa-times"></i>
                     </button>
                     <br>
-                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-fill btn-xs" ng-click="changeActiveStatus($index)">
+                    <button type="button" rel="tooltip" title="Remove" class="btn btn-fill btn-xs ng-class:{'btn-success':(item.status=='InStore'),'btn-danger':(item.status=='OnHold'),'btn-info':(item.status=='Wished')}" ng-click="changeActiveStatus($index)">
                         <i>{{item.status}}</i>
                     </button>
                 </td>
