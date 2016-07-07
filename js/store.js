@@ -1,6 +1,6 @@
 var storeApp = angular.module('indexApp');
 
-storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
+storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($scope, $http, modalService){
     
     // setting the defalut page no as one
     $scope.pageNo = 1;
@@ -21,6 +21,44 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
         $scope.pageNo = 1;
         lastItemIds = [0];
         getItems(0);
+    }
+
+    $scope.changeActiveStatus = function(i){
+        modalService.showModal({}, {bodyText: "Are you sure you want to put this item on ", itemStatusDropdown: true, actionButtonText: 'Yes'}).then(function(result){
+            var req = {
+                table: "items",
+				operation: "editstat",
+				row: {
+					title: "",
+                    description: "",
+					category: "",
+					userId: "",
+					leaseTerm: "",
+					id: $scope.items[i].itemId,
+                    leaseValue: 1000,
+                    status: result,
+                    image: ""
+				}
+            }
+            $.ajax({
+                url: '/flsv2/AdminOps',
+                type:'get',
+                data: {req: JSON.stringify(req)},
+                contentType:"application/json",
+                dataType: "json",
+                success: function(response) {
+                    if(response.Code == 0){
+                        modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
+                            function(r){
+                                $scope.items[i].status = result;
+                            },
+                            function(){});
+                    }
+                },
+                error:function() {
+                }
+            });
+        },function(){});
     }
 
     var getItems = function(token){

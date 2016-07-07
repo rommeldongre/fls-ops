@@ -1,5 +1,5 @@
 <div class="row">
-    <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Store {{filter.status}}</span>
+    <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Store</span>
     <div class="col-lg-8 col-md-8 pull-right">
         <div class="input-group">
             <div class="input-group-btn">
@@ -51,6 +51,10 @@
                     </button>
                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
                         <i class="fa fa-times"></i>
+                    </button>
+                    <br>
+                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-fill btn-xs" ng-click="changeActiveStatus($index)">
+                        <i>{{item.status}}</i>
                     </button>
                 </td>
               </tr>
