@@ -6,18 +6,22 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
     $scope.pageNo = 1;
 
     var lastItemId = 0;
+    var lastItemIds = [lastItemId];
     $scope.search = {};
     $scope.search.string = "";
+
+    var limit = 10;
 
     var getItems = function(token){
         var req = {
             cookie: token,
             userId: null,
             category: null,
-            limit: 10,
+            limit: limit,
             lat: 0.0,
             lng: 0.0,
-            searchString: $scope.search.string
+            searchString: $scope.search.string,
+            itemStatus: ['InStore']
         }
         
         displayItems(req);
@@ -36,7 +40,8 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
                         $scope.items = response.resList;
                     });
                     lastItemId = response.lastItemId;
-                    console.log(lastItemId);
+                }else{
+                    lastItemId = -1
                 }
             },
             error:function() {
@@ -44,21 +49,23 @@ storeApp.controller('storeCtrl', ['$scope', '$http', function($scope, $http){
         });	
     }
     
-    // calling the function initially when the file get loaded
+    // calling the function initially when the file gets loaded
     getItems(lastItemId);
 
     $scope.nextItems = function(){
-        $scope.items = [];
-        $scope.pageNo++;
-        getItems(lastItemId);
+        if(lastItemId != -1){
+            $scope.items = [];
+            $scope.pageNo++;
+            lastItemIds.push(lastItemId);
+            getItems(lastItemId);
+        }
     }
 
     $scope.prevItems = function(){
-        var i = lastItemId - 20;
-        if(i >= 0){
+        if($scope.pageNo > 1){
             $scope.items = [];
             $scope.pageNo--;
-            getItems(i);
+            getItems(lastItemIds[$scope.pageNo-1]);
         }
     }
 
