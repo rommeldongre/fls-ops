@@ -1,7 +1,7 @@
 var storeApp = angular.module('indexApp');
 
 storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($scope, $http, modalService){
-    
+
     // setting the defalut page no as one
     $scope.pageNo = 1;
 
@@ -74,7 +74,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
         }
         displayItems(req);
     }
-    
+
     var displayItems = function(req){
         $.ajax({
             url: '/flsv2/GetItemStoreByX',
@@ -94,9 +94,9 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
             },
             error:function() {
             }
-        });	
+        });
     }
-    
+
     // calling the function initially when the file gets loaded
     getItems(lastItemId);
 
@@ -123,5 +123,5 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
         lastItemIds = [0];
         getItems(0);
     }
-    
+
 }]);

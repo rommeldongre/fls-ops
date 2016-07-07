@@ -13,8 +13,8 @@ indexApp.config(function($routeProvider){
         controller : 'userCtrl'
     })
     
-    .when('/store', {
-        templateUrl : 'store.html',
+    .when('/items', {
+        templateUrl : 'items.html',
         controller : 'storeCtrl'
     })
     
