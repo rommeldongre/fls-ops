@@ -49,6 +49,7 @@ indexApp.service('modalService', ['$uibModal',
             itemStatusDropdown: false,
 			labelText: 'Default Label Text',
             submitting: false,
+            editingItem: false,
             cancelButtonText: 'Cancel',
             headerText: 'Frrndlease Dashboard Says',
             bodyText: 'Perform this action?'
@@ -74,9 +75,97 @@ indexApp.service('modalService', ['$uibModal',
             if (!tempModalDefaults.controller) {
                 tempModalDefaults.controller = function ($scope, $uibModalInstance) {
                     $scope.submit = {};
+                    $scope.uploadImage = function(file){
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $scope.$apply(function() {
+                                $scope.submit.image = reader.result;
+                            });
+                        }
+                        reader.readAsDataURL(file);
+                    }
+
+                    $scope.categories = [];
+
+                    var populateCategory = function(id){
+                        var req = {
+                            operation:"getNext",
+                            token: id
+                        }
+
+                        displayCategory(req);
+                    }
+
+                    var displayCategory = function(req){
+                        $.ajax({
+                            url: '/flsv2/GetCategoryList',
+                            type:'get',
+                            data: {req: JSON.stringify(req)},
+                            contentType:"application/json",
+                            dataType: "json",
+                            success: function(response) {
+                                if(response.Code === "FLS_SUCCESS") {
+                                    $scope.categories.push(JSON.parse(response.Message).catName);
+                                    populateCategory(response.Id);
+                                }
+                                else{
+                                    //all categories are loaded
+                                }
+                            },
+                            error:function() {
+                            }
+                        });
+                    }
+
+                    // called on the page load
+                    populateCategory('');
+
+                    $scope.categorySelected = function(c){
+                        $scope.submit.category = c;
+                    }
+
+                    $scope.leaseTerms = [];
+
+                    var populateLeaseTerm = function(id){
+                        var req = {
+                            operation:"getNext",
+                            token: id
+                        }
+
+                        displayLeaseTerm(req);
+                    }
+
+                    var displayLeaseTerm = function(req){
+                        $.ajax({
+                            url: '/flsv2/GetLeaseTerms',
+                            type:'get',
+                            data: {req: JSON.stringify(req)},
+                            contentType:"application/json",
+                            dataType: "json",
+                            success: function(response) {
+                                if(response.Code === "FLS_SUCCESS") {
+                                    $scope.leaseTerms.push(JSON.parse(response.Message).termName);
+                                    populateLeaseTerm(response.Id);
+                                }
+                                else{
+                                    //all categories are loaded
+                                }
+                            },
+                            error:function() {
+                            }
+                        });
+                    }
+
+                    // called on the page load
+                    populateLeaseTerm('');
+
+                    $scope.leaseTermSelected = function(l){
+                        $scope.submit.leaseTerm = l;
+                    }
+
                     $scope.modalOptions = tempModalOptions;
                     $scope.modalOptions.ok = function (result) {
-                        $uibModalInstance.close($scope.submit.url);
+                        $uibModalInstance.close($scope.submit);
                     };
                     $scope.modalOptions.cancel = function () {
                         $uibModalInstance.dismiss('cancel');

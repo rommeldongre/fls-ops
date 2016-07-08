@@ -40,7 +40,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
 					leaseTerm: "",
 					id: $scope.items[i].itemId,
                     leaseValue: 1000,
-                    status: result,
+                    status: result.status,
                     image: ""
 				}
             }
@@ -54,7 +54,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
                     if(response.Code == 0){
                         modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
                             function(r){
-                                $scope.items[i].status = result;
+                                $scope.items[i].status = result.status;
                             },
                             function(){});
                     }
@@ -126,17 +126,19 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
     }
 
     $scope.editItem = function(i){
-        var req = {
-            title: $scope.items[i].title+" Edited",
-            description: $scope.items[i].desc,
-            category: $scope.items[i].category,
-            userId: $scope.items[i].userId,
-            leaseTerm: $scope.items[i].leaseTerm,
-            id: $scope.items[i].itemId,
-            leaseValue: $scope.items[i].leaseValue,
-            image: $scope.items[i].image
-        }
-        editItemSend(req);
+        modalService.showModal({}, {editingItem: true, headerText: "Edit Item", actionButtonText: 'Update', item: $scope.items[i]}).then(function(response){
+            var req = {
+                title: response.title,
+                description: response.desc,
+                category: response.category,
+                userId: $scope.items[i].userId,
+                leaseTerm: response.leaseTerm,
+                id: $scope.items[i].itemId,
+                leaseValue: response.leaseValue,
+                image: response.image
+            }
+            editItemSend(req);
+        }, function(){});
     }
 
     var editItemSend = function(req){
