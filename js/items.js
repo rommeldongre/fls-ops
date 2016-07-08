@@ -15,12 +15,16 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
 
     $scope.status = 'InStore';
 
-    $scope.changeStatus = function(s){
-        $scope.status = s;
+    var initialPopulate = function(){
         $scope.items = [];
         $scope.pageNo = 1;
         lastItemIds = [0];
         getItems(0);
+    }
+
+    $scope.changeStatus = function(s){
+        $scope.status = s;
+        initialPopulate();
     }
 
     $scope.changeActiveStatus = function(i){
@@ -118,10 +122,84 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
     }
 
     $scope.searching = function(){
-        $scope.items = [];
-        $scope.pageNo = 1;
-        lastItemIds = [0];
-        getItems(0);
+        initialPopulate();
+    }
+
+    $scope.editItem = function(i){
+        var req = {
+            title: $scope.items[i].title+" Edited",
+            description: $scope.items[i].desc,
+            category: $scope.items[i].category,
+            userId: $scope.items[i].userId,
+            leaseTerm: $scope.items[i].leaseTerm,
+            id: $scope.items[i].itemId,
+            leaseValue: $scope.items[i].leaseValue,
+            image: $scope.items[i].image
+        }
+        editItemSend(req);
+    }
+
+    var editItemSend = function(req){
+        $.ajax({ url: '/flsv2/EditPosting',
+            type: 'post',
+            data: {req : JSON.stringify(req)},
+			contentType: "application/x-www-form-urlencoded",
+			dataType: "json",
+            success: function(response) {
+                if(response.Code == "FLS_SUCCESS"){
+                    modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
+                        function(r){
+                            initialPopulate();
+                        },
+                        function(){});
+                }
+            },
+            error:function() {
+            }
+        });
+    }
+
+    $scope.deleteItem = function(i){
+        modalService.showModal({}, {bodyText: "Are you sure you want to delete this item?", actionButtonText: 'Yes'}).then(
+            function(result){
+                var req = {
+                    table: "items",
+                    operation: "delete",
+                    row: {
+                        title: "",
+                        description: "",
+                        category: "",
+                        userId: "",
+                        leaseTerm: "",
+                        id: $scope.items[i].itemId,
+                        leaseValue: 1000,
+                        status: "",
+                        image: ""
+                    }
+                }
+                deleteItemSend(req, i);
+            },function(error){});
+    }
+
+    var deleteItemSend = function(req, i){
+        $.ajax({
+            url: '/flsv2/AdminOps',
+            type:'get',
+            data: {req: JSON.stringify(req)},
+            contentType:"application/json",
+            dataType: "json",
+            success: function(response) {
+                if(response.Code == 0){
+                    modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
+                        function(r){
+                            $scope.items.splice(i,1);
+                        },
+                        function(){});
+                }
+            },
+            error:function() {
+            }
+        });
     }
 
 }]);

@@ -9,6 +9,7 @@
                     <li><a href="" ng-click="changeStatus('InStore')">Instore</a></li>
                     <li><a href="" ng-click="changeStatus('Wished')">Wished</a></li>
                     <li><a href="" ng-click="changeStatus('OnHold')">OnHold</a></li>
+                    <li><a href="" ng-click="changeStatus('Archived')">Archived</a></li>
                 </ul>
             </div>
             <input type="text" class="form-control" ng-keypress="($event.charCode==13)?searching():return" placeholder="Search here..." ng-model="search.string" >
@@ -46,14 +47,14 @@
                     <button type="button" rel="tooltip" title="View Profile" class="btn btn-info btn-simple btn-xs">
                         <i class="fa fa-user"></i>
                     </button>
-                    <button type="button" rel="tooltip" title="Edit Profile" class="btn btn-success btn-simple btn-xs">
+                    <button type="button" rel="tooltip" title="Edit Item" class="btn btn-success btn-simple btn-xs" ng-click="editItem($index)">
                         <i class="fa fa-edit"></i>
                     </button>
-                    <button type="button" rel="tooltip" title="Delete" class="btn btn-danger btn-simple btn-xs">
+                    <button type="button" rel="tooltip" title="Delete Item" class="btn btn-danger btn-simple btn-xs" ng-click="deleteItem($index)">
                         <i class="fa fa-times"></i>
                     </button>
                     <br>
-                    <button type="button" rel="tooltip" title="Remove" class="btn btn-fill btn-xs ng-class:{'btn-success':(item.status=='InStore'),'btn-danger':(item.status=='OnHold'),'btn-info':(item.status=='Wished')}" ng-click="changeActiveStatus($index)">
+                    <button type="button" rel="tooltip" title="Remove" class="btn btn-fill btn-xs ng-class:{'btn-success':(item.status=='InStore'),'btn-danger':(item.status=='OnHold'),'btn-info':(item.status=='Wished'),'btn-warning':(item.status=='Archived')}" ng-click="changeActiveStatus($index)">
                         <i>{{item.status}}</i>
                     </button>
                 </td>
