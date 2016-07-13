@@ -7,6 +7,8 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function(
 
     $scope.status = 'Active';
 
+    $scope.statusFilter = '';
+
     var initialPopulate = function(){
         $scope.leases = [];
         getLeases(0);
@@ -14,6 +16,11 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function(
 
     $scope.changeStatus = function(s){
         $scope.status = s;
+        initialPopulate();
+    }
+
+    $scope.activeStatusFilter = function(s){
+        $scope.statusFilter = s;
         initialPopulate();
     }
 
@@ -27,12 +34,11 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function(
         else if(status == 'LeaseEnded')
             changeStatus(index, 'PickedUpIn');
         else if(status == 'PickedUpIn')
-            closeLease(index);
-
+            modalService.showModal({}, {bodyText: "Are you sure you want to close the lease?",showCancel: false, actionButtonText: 'OK'}).then(function(r){closeLease(index);},function(){});
     }
 
     var changeStatus = function(i, s){
-        modalService.showModal({}, {bodyText: "Are you sure you want to put this item on ", leaseStatusDropdown: true, leaseStatus: s, actionButtonText: 'Yes'}).then(function(result){
+        modalService.showModal({}, {bodyText: "Are you sure you want to change the status of this lease to ", leaseStatusDropdown: true, leaseStatus: s, actionButtonText: 'Yes'}).then(function(result){
             var req = {
                 table: "items",
 				operation: "editstat",
@@ -44,7 +50,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function(
 					leaseTerm: "",
 					id: $scope.leases[i].itemId,
                     leaseValue: 1000,
-                    status: result.status,
+                    status: s,
                     image: ""
 				}
             }
@@ -58,7 +64,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function(
                     if(response.Code == 0){
                         modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
                             function(r){
-                                $scope.leases[i].status = result.status;
+                                $scope.leases[i].status = s;
                             },
                             function(){});
                     }
