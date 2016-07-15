@@ -1,0 +1,103 @@
+<div class="modal-header">
+    <h3>{{modalOptions.headerText}}</h3>
+</div>
+<div class="modal-body" ng-if="!modalOptions.editingItem">
+    <p ng-if="!modalOptions.submitting">{{modalOptions.bodyText}}<span><i><strong>{{modalOptions.leaseStatus}}</strong></i></span></p>
+    <label ng-if="modalOptions.submitting">{{modalOptions.labelText}}</label><br />
+    <div class="dropdown" ng-if="modalOptions.itemStatusDropdown" ng-init="submit.status = 'OnHold'">
+        <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{submit.status}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="" ng-click="submit.status = 'OnHold'">OnHold</a></li>
+            <li><a href="" ng-click="submit.status = 'InStore'">Instore</a></li>
+            <li><a href="" ng-click="submit.status = 'Wished'">Wished</a></li>
+            <li><a href="" ng-click="submit.status = 'Archived'">Archived</a></li>
+        </ul>
+    </div>
+    <div ng-if="modalOptions.leaseStatusDropdown">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="item_image" id="image_label" class="col-sm-2 control-label">Add Picture</label>
+                <div class="col-sm-10">
+                    <input type="file" accept="image/*" onchange="angular.element(this).scope().uploadImage(files[0])" />
+                </div>
+            </div>
+            <div class="form-group" ng-init="submit.image = modalOptions.item.image">
+                <div class="col-lg-12">
+                    <img ng-src="{{(submit.image === '' || submit.image === null || submit.image === 'null') ? 'images/imgplaceholder.png' : submit.image}}" width="300" height="300"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <input type="text" class="form-control" ng-if="modalOptions.submitting" ng-model="submit.status">
+</div>
+<div class="modal-body" ng-if="modalOptions.editingItem">
+    <div class="content">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="item_image" id="image_label" class="col-sm-2 control-label">Add Picture</label>
+                <div class="col-sm-10">
+                    <input type="file" accept="image/*" onchange="angular.element(this).scope().uploadImage(files[0])" />
+                </div>
+            </div>
+            <div class="form-group" ng-init="submit.image = modalOptions.item.image">
+                <div class="col-lg-12">
+                    <img ng-src="{{(submit.image === '' || submit.image === null || submit.image === 'null') ? 'images/imgplaceholder.png' : submit.image}}" width="300" height="300"/>
+                </div>
+            </div>
+            <div class="form-group" ng-init="submit.title = modalOptions.item.title">
+                <label for="title" class="col-sm-2 control-label">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="submit.title" placeholder="Enter Title" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="category" class="col-sm-2 control-label">Category</label>
+                <div class="col-sm-10">
+                    <div class="input-group-button" ng-init="submit.category = modalOptions.item.category">
+                        <button ng-bind="submit.category" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" required> Category <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="text-align:center;">
+                            <span ng-repeat="c in categories" ng-click="categorySelected(c)">
+                                <li class="category">{{c}}</li>
+                                <li class="divider"></li>
+                            </span>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group" ng-init="submit.leaseValue = modalOptions.item.leaseValue">
+                <label for="lease_value" class="col-sm-2 control-label">Lease Value</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" ng-model="submit.leaseValue" placeholder="Lease Value">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lease_term" class="col-sm-2 control-label">Lease Term</label>
+                <div class="col-sm-10">
+                    <div class="input-group-button" ng-init="submit.leaseTerm = modalOptions.item.leaseTerm">
+                        <button ng-bind="submit.leaseTerm" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Lease Term <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="text-align:center;">
+                            <span ng-repeat="l in leaseTerms" ng-click="leaseTermSelected(l)">
+                                <li id="{{l}}" class="leaseterm">{{l}}</li>
+                                <li class="divider"></li>
+                            </span>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-init="submit.desc = modalOptions.item.desc">
+                <label  for="description" class="col-sm-2 control-label">Description</label>
+                <div class="col-sm-10" >
+                    <textarea ng-model="submit.desc" id="desc" style="margin-bottom:5%;" class="form-control" id="description" placeholder="Add Description"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-fill" ng-if="modalOptions.showCancel" data-ng-click="modalOptions.cancel()">{{modalOptions.cancelButtonText}}</button>
+    <button class="btn btn-primary btn-fill" data-ng-click="modalOptions.ok()">{{modalOptions.actionButtonText}}</button>
+</div>
