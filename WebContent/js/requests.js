@@ -1,4 +1,4 @@
-var requestsApp = angular.module('indexApp');
+var requestsApp = angular.module('myApp');
 
 requestsApp.controller('requestsCtrl', ['$scope', function($scope){
     

@@ -1,4 +1,4 @@
-var leasesApp = angular.module('indexApp');
+var leasesApp = angular.module('myApp');
 
 leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function($scope, $http, modalService){
 
@@ -40,29 +40,24 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function(
     var changeStatus = function(i, s){
         modalService.showModal({}, {bodyText: "Are you sure you want to change the status of this lease to ", leaseStatusDropdown: true, leaseStatus: s, actionButtonText: 'Yes'}).then(function(result){
             var req = {
-                table: "items",
-				operation: "editstat",
-				row: {
-					title: "",
-                    description: "",
-					category: "",
-					userId: "",
-					leaseTerm: "",
-					id: $scope.leases[i].itemId,
-                    leaseValue: 1000,
-                    status: s,
-                    image: ""
-				}
+                title: "",
+                description: "",
+				category: "",
+				userId: "",
+				leaseTerm: "",
+                image: result.image,
+				id: $scope.leases[i].itemId,
+                leaseValue: 1000,
+                status: s
             }
-            $.ajax({
-                url: '/flsv2/AdminOps',
-                type:'get',
-                data: {req: JSON.stringify(req)},
-                contentType:"application/json",
+            $.ajax({ url: '/flsv2/EditItemStatus',
+                type: 'post',
+                data: {req : JSON.stringify(req)},
+                contentType: "application/x-www-form-urlencoded",
                 dataType: "json",
                 success: function(response) {
-                    if(response.Code == 0){
-                        modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
+                    if(response.Code == "FLS_SUCCESS"){
+                         modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
                             function(r){
                                 $scope.leases[i].status = s;
                             },

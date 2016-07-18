@@ -1,4 +1,4 @@
-var storeApp = angular.module('indexApp');
+var storeApp = angular.module('myApp');
 
 storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($scope, $http, modalService){
 
