@@ -1,35 +1,56 @@
-<h3 class="page-header">Users</h3>
+<div class="row">
+    <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Users</span>
+    <div class="col-lg-8 col-md-8 pull-right">
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{verificarionText}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="changeStatus(-1, 'All')">All</a></li>
+                    <li><a href="" ng-click="changeStatus(1, 'Verified')">Verified</a></li>
+                    <li><a href="" ng-click="changeStatus(0, 'Not Verified')">Not Verified</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="text-center">#</th>
-                <th>Name</th>
-                <th>Job Position</th>
-                <th>Since</th>
-                <th class="text-right">Salary</th>
-                <th class="text-right">Actions</th>
+                <th>User Id</th>
+                <th>Profile Pic</th>
+                <th class="text-center">Full Name</th>
+                <th class="text-center">Sublocality</th>
+                <th class="text-center">Locality</th>
+                <th class="text-center">Credits</th>
+                <th class="text-center">Photo Id</th>
+                <th class="text-center">Verification</th>
+                <th class="text-center">Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-center">1</td>
-                <td>Andrew Mike</td>
-                <td>Develop</td>
-                <td>2013</td>
-                <td class="text-right">&euro; 99,225</td>
-                <td class="td-actions text-right">
-                    <button type="button" rel="tooltip" title="View Profile" class="btn btn-info btn-simple btn-xs">
-                        <i class="fa fa-user"></i>
-                    </button>
-                    <button type="button" rel="tooltip" title="Edit Profile" class="btn btn-success btn-simple btn-xs">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                        <i class="fa fa-times"></i>
+            <tr ng-repeat="user in users">
+                <td>{{user.userId}}</td>
+                <td><img ng-src="{{(user.profilePic === '' || user.profilePic === null || user.profilePic === NULL || user.profilePic === 'null') ? 'images/imgplaceholder.png' : user.profilePic}}" style="width:50px;"></td>
+                <td class="text-center">{{user.fullName}}</td>
+                <td class="text-center">{{user.sublocality}}</td>
+                <td class="text-center">{{user.locality}}</td>
+                <td class="text-center">{{user.credit}}</td>
+                <td class="text-center"><img ng-src="{{(user.photoId === '' || user.photoId === null || user.photoId === NULL || user.photoId === 'null') ? 'images/imgplaceholder.png' : user.photoId}}" style="width:50px;"></td>
+                <td class="text-center">{{(user.verification == 0) ? 'Not Verified' : 'Verified'}}</td>
+                <td class="td-actions text-center">
+                    <button type="button" rel="tooltip" title="User Verification" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.verification==1),'btn-danger':(user.verification==0)}">
+                        <i>Live</i>
                     </button>
                 </td>
               </tr>
         </tbody>
     </table>
+    <ul class="pagination pull-right">
+        <li ng-click="prevUsers()"><a href="">&laquo;</a></li>
+        <li class="active"><a href="#">{{pageNo}}</a></li>
+        <li ng-click="nextUsers()"><a href="">&raquo;</a></li>
+    </ul>
 </div>
