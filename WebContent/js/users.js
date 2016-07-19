@@ -9,12 +9,6 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
     $scope.verification = -1;
     $scope.verificarionText = 'All';
 
-    $scope.changeStatus = function(v, vt){
-        $scope.verification = v;
-        $scope.verificarionText = vt;
-        initialPopulate();
-    }
-
     var initialPopulate = function(){
         $scope.users = [];
         $scope.pageNo = 1;
@@ -23,16 +17,52 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
         getUsers(token);
     }
 
+    $scope.changeFilter = function(v, vt){
+        $scope.verification = v;
+        $scope.verificarionText = vt;
+        initialPopulate();
+    }
+
+    $scope.changeLiveStatus = function(i){
+        modalService.showModal({}, {bodyText: "Are you sure you want to put this user on ", userLiveStatusDropdown: true, actionButtonText: 'Yes'}).then(function(result){
+            var req = {
+                table: "users",
+                operation: "editlivestatus",
+                row: {
+                    userId:$scope.users[i].userId,
+                    liveStatus:result.status
+                }
+            }
+            $.ajax({
+                url: '/flsv2/AdminOps',
+                type:'get',
+                data: {req: JSON.stringify(req)},
+                contentType:"application/json",
+                dataType: "json",
+                success: function(response) {
+                    if(response.Code == 0){
+                        modalService.showModal({}, {bodyText: 'Users status changed!!', actionButtonText: 'OK'}).then(
+                            function(r){
+                                $scope.users[i].liveStatus = result.status;
+                            },
+                            function(){});
+                    }
+                },
+                error:function() {
+                }
+            });
+        },function(){});
+    }
+
     var getUsers = function(c){
         var req = {
             table: "users",
             operation: "getusers",
             row: {
-
+                verification: $scope.verification
             },
             cookie: c,
-            limit: Limit,
-            verification: $scope.verification
+            limit: Limit
         }
         displayUsers(req);
     }

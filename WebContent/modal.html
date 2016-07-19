@@ -14,6 +14,14 @@
             <li><a href="" ng-click="submit.status = 'Archived'">Archived</a></li>
         </ul>
     </div>
+    <div class="dropdown" ng-if="modalOptions.userLiveStatusDropdown" ng-init="submit.status = 0">
+        <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{(submit.status==0) ? 'On Hold' : 'Live'}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="" ng-click="submit.status = 0">OnHold</a></li>
+            <li><a href="" ng-click="submit.status = 1">Live</a></li>
+        </ul>
+    </div>
     <div ng-if="modalOptions.leaseStatusDropdown">
         <form class="form-horizontal">
             <div class="form-group">
