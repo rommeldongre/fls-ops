@@ -39,7 +39,10 @@
                 <td class="text-center">{{user.locality}}</td>
                 <td class="text-center">{{user.credit}}</td>
                 <td class="text-center"><img ng-src="{{(user.photoId === '' || user.photoId === null || user.photoId === NULL || user.photoId === 'null') ? 'images/imgplaceholder.png' : user.photoId}}" style="width:50px;"></td>
-                <td class="text-center">{{(user.verification == 0) ? 'Not Verified' : 'Verified'}}</td>
+                <td class="td-actions text-center">
+                    <button type="button" rel="tooltip" title="User's Verification" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.verification==1),'btn-danger':(user.verification==0)}"  ng-click="changeVerification($index)">
+                        <i>{{(user.verification == 0) ? 'Not Verified' : 'Verified'}}</i>
+                    </button></td>
                 <td class="td-actions text-center">
                     <button type="button" rel="tooltip" title="User's Live Status" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.liveStatus==1),'btn-danger':(user.liveStatus==0)}"  ng-click="changeLiveStatus($index)">
                         <i>{{(user.liveStatus == 0) ? 'On Hold' : 'Live'}}</i>

@@ -23,6 +23,37 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
         initialPopulate();
     }
 
+    $scope.changeVerification = function(i){
+        modalService.showModal({}, {bodyText: "Are you sure you want change verification to ", userVerificationDropdown: true, actionButtonText: 'Yes'}).then(function(result){
+            var req = {
+                table: "users",
+                operation: "editVerification",
+                row: {
+                    userId:$scope.users[i].userId,
+                    verification:result.status
+                }
+            }
+            $.ajax({
+                url: '/flsv2/AdminOps',
+                type:'get',
+                data: {req: JSON.stringify(req)},
+                contentType:"application/json",
+                dataType: "json",
+                success: function(response) {
+                    if(response.Code == 0){
+                        modalService.showModal({}, {bodyText: 'Users verification changed!!', actionButtonText: 'OK'}).then(
+                            function(r){
+                                $scope.users[i].verification = result.status;
+                            },
+                            function(){});
+                    }
+                },
+                error:function() {
+                }
+            });
+        },function(){});
+    }
+
     $scope.changeLiveStatus = function(i){
         modalService.showModal({}, {bodyText: "Are you sure you want to put this user on ", userLiveStatusDropdown: true, actionButtonText: 'Yes'}).then(function(result){
             var req = {
