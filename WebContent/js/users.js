@@ -6,8 +6,11 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
     var tokens = [token];
 
     var Limit = 10;
-    $scope.verification = -1;
+    var Verification = -1;
+    var LiveStatus = -1;
+
     $scope.verificarionText = 'All';
+    $scope.liveStatusText = 'All';
 
     var initialPopulate = function(){
         $scope.users = [];
@@ -17,11 +20,57 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
         getUsers(token);
     }
 
-    $scope.changeFilter = function(v, vt){
-        $scope.verification = v;
+    $scope.changeVerificationFilter = function(v, vt){
+        Verification = v;
         $scope.verificarionText = vt;
         initialPopulate();
     }
+
+    $scope.changeLiveStatusFilter = function(ls, lst){
+        LiveStatus = ls;
+        $scope.liveStatusText = lst;
+        initialPopulate();
+    }
+
+    var getUsers = function(c){
+        var req = {
+            table: "users",
+            operation: "getusers",
+            row: {
+                verification: Verification,
+                liveStatus: LiveStatus
+            },
+            cookie: c,
+            limit: Limit
+        }
+        displayUsers(req);
+    }
+
+    var displayUsers = function(req){
+        $.ajax({
+            url: '/flsv2/AdminOps',
+            type:'get',
+            data: {req: JSON.stringify(req)},
+            contentType:"application/json",
+            dataType: "json",
+            success: function(response) {
+                if(response.Code == 0){
+                    var obj = JSON.parse(response.Message);
+                    $scope.$apply(function(){
+                        $scope.users = obj.users;
+                    });
+                    token = obj.offset;
+                }else{
+                    token = -1
+                }
+            },
+            error:function() {
+            }
+        });
+    }
+
+    // calling the function initially when the file gets loaded
+    initialPopulate();
 
     $scope.changeVerification = function(i){
         modalService.showModal({}, {bodyText: "Are you sure you want change verification to ", userVerificationDropdown: true, actionButtonText: 'Yes'}).then(function(result){
@@ -84,45 +133,6 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
             });
         },function(){});
     }
-
-    var getUsers = function(c){
-        var req = {
-            table: "users",
-            operation: "getusers",
-            row: {
-                verification: $scope.verification
-            },
-            cookie: c,
-            limit: Limit
-        }
-        displayUsers(req);
-    }
-
-    var displayUsers = function(req){
-        $.ajax({
-            url: '/flsv2/AdminOps',
-            type:'get',
-            data: {req: JSON.stringify(req)},
-            contentType:"application/json",
-            dataType: "json",
-            success: function(response) {
-                if(response.Code == 0){
-                    var obj = JSON.parse(response.Message);
-                    $scope.$apply(function(){
-                        $scope.users = obj.users;
-                    });
-                    token = obj.offset;
-                }else{
-                    token = -1
-                }
-            },
-            error:function() {
-            }
-        });
-    }
-
-    // calling the function initially when the file gets loaded
-    initialPopulate();
 
     $scope.nextUsers = function(){
         if(token != -1){

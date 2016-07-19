@@ -1,14 +1,33 @@
 <div class="row">
     <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Users</span>
-    <div class="col-lg-8 col-md-8 pull-right">
+    <div class="col-lg-1 col-md-1">
+        <span>Verification Filter:</span>
+    </div>
+    <div class="col-lg-3 col-md-3">
         <div class="input-group">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{verificarionText}}<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="" ng-click="changeFilter(-1, 'All')">All</a></li>
-                    <li><a href="" ng-click="changeFilter(1, 'Verified')">Verified</a></li>
-                    <li><a href="" ng-click="changeFilter(0, 'Not Verified')">Not Verified</a></li>
+                    <li><a href="" ng-click="changeVerificationFilter(-1, 'All')">All</a></li>
+                    <li><a href="" ng-click="changeVerificationFilter(1, 'Verified')">Verified</a></li>
+                    <li><a href="" ng-click="changeVerificationFilter(0, 'Not Verified')">Not Verified</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1 col-md-1">
+        <span>Live Status Filter:</span>
+    </div>
+    <div class="col-lg-3 col-md-3">
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{liveStatusText}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="changeLiveStatusFilter(-1, 'All')">All</a></li>
+                    <li><a href="" ng-click="changeLiveStatusFilter(1, 'Live')">Live</a></li>
+                    <li><a href="" ng-click="changeLiveStatusFilter(0, 'On Hold')">On Hold</a></li>
                 </ul>
             </div>
         </div>
