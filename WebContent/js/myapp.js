@@ -65,7 +65,7 @@ myApp.service('modalService', ['$uibModal',
             animation: true,
             backdrop: true,
             keyboard: true,
-            templateUrl: '/fls-ops/WebContent/modal.html'
+            templateUrl: 'modal.html'
         };
 
         var modalOptions = {
