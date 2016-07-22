@@ -10,9 +10,11 @@ indexApp.controller('indexCtrl', ['$scope', 'loginService', function($scope, log
         if(email == 'admin@frrndlease.com' || email == 'ops@frrndlease.com'){
             password = (CryptoJS.MD5(password)).toString();
             var req = {
-                auth: password,
                 token: email,
-                signUpStatus: "email_activated"
+                signUpStatus: "email_activated",
+                row: {
+                    auth: password
+                }
             }
             loginSend(req);
         }else{
