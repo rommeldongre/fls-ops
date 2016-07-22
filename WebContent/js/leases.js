@@ -1,6 +1,6 @@
 var leasesApp = angular.module('myApp');
 
-leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function($scope, $http, modalService){
+leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginService', function($scope, $http, modalService, loginService){
 
     // saving the last item ids for page navigation in the ui
     var lastItemId = 0;
@@ -25,20 +25,57 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', function(
     }
 
     $scope.changeActiveStatus = function(index, status){
-        if(status == 'LeaseReady')
-            changeStatus(index, 'PickedUpOut');
-        else if(status == 'PickedUpOut')
-            changeStatus(index, 'LeaseStarted');
-        else if(status == 'LeaseStarted')
-            modalService.showModal({}, {bodyText: "Cannot change the status untill the lease is ended!!",showCancel: false, actionButtonText: 'OK'}).then(function(r){},function(){});
-        else if(status == 'LeaseEnded')
-            changeStatus(index, 'PickedUpIn');
-        else if(status == 'PickedUpIn')
-            modalService.showModal({}, {bodyText: "Are you sure you want to close the lease?",showCancel: false, actionButtonText: 'OK'}).then(function(r){closeLease(index);},function(){});
+        if(loginService.user == 'ops@frrndlease.com'){
+            if(status == 'LeaseReady')
+                changeStatusOps(index, 'PickedUpOut');
+            else if(status == 'PickedUpOut')
+                changeStatusOps(index, 'LeaseStarted');
+            else if(status == 'LeaseStarted')
+                modalService.showModal({}, {bodyText: "Cannot change the status untill the lease is ended!!",showCancel: false, actionButtonText: 'OK'}).then(function(r){},function(){});
+            else if(status == 'LeaseEnded')
+                changeStatusOps(index, 'PickedUpIn');
+            else if(status == 'PickedUpIn')
+                modalService.showModal({}, {bodyText: "Are you sure you want to close the lease?",showCancel: false, actionButtonText: 'OK'}).then(function(r){closeLease(index);},function(){});
+        }else if(loginService.user == 'admin@frrndlease.com'){
+            changeStatusAdmin(index);
+        }
     }
 
-    var changeStatus = function(i, s){
-        modalService.showModal({}, {bodyText: "Are you sure you want to change the status of this lease to ", leaseStatusDropdown: true, leaseStatus: s, actionButtonText: 'Yes'}).then(function(result){
+    var changeStatusAdmin = function(i){
+        modalService.showModal({}, {bodyText: "Are you sure you want to change the status of this lease to ", leaseStatusDropdownAdmin:true, actionButtonText: 'Yes'}).then(function(result){
+            var req = {
+                title: "",
+                description: "",
+				category: "",
+				userId: "",
+				leaseTerm: "",
+                image: result.image,
+				id: $scope.leases[i].itemId,
+                leaseValue: 1000,
+                status: result.status
+            }
+            $.ajax({ url: '/flsv2/EditItemStatus',
+                type: 'post',
+                data: {req : JSON.stringify(req)},
+                contentType: "application/x-www-form-urlencoded",
+                dataType: "json",
+                success: function(response) {
+                    if(response.Code == "FLS_SUCCESS"){
+                         modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
+                            function(r){
+                                $scope.leases[i].status = result.status;
+                            },
+                            function(){});
+                    }
+                },
+                error:function() {
+                }
+            });
+        },function(){});
+    }
+
+    var changeStatusOps = function(i, s){
+        modalService.showModal({}, {bodyText: "Are you sure you want to change the status of this lease to ", leaseStatusDropdownOps:true, leaseStatusOps: s, actionButtonText: 'Yes'}).then(function(result){
             var req = {
                 title: "",
                 description: "",
