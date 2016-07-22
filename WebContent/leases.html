@@ -48,8 +48,8 @@
             <tr ng-repeat="lease in leases | filter : {status: statusFilter}">
                 <td class="text-center">{{lease.itemId}}</td>
                 <td><img ng-src="{{(lease.image === '' || lease.image === null || lease.image === NULL || lease.image === 'null') ? 'images/imgplaceholder.png' : lease.image}}" style="width:50px;"></td>
-                <td  class="text-center">{{lease.ownerAddress}}</td>
-                <td  class="text-center">{{lease.requestorAddress}}</td>
+                <td class="text-center">{{lease.ownerAddress}}<br/>Ph-{{lease.ownerMobile}}</td>
+                <td class="text-center">{{lease.requestorAddress}}<br/>Ph-{{lease.requestorMobile}}</td>
                 <td class="td-actions text-center" ng-if="status != 'Archived'">
                     <button type="button" rel="tooltip" title="Status" class="btn btn-fill btn-xs btn-success" ng-click="changeActiveStatus($index, lease.status)">
                         <i>{{lease.status}}</i>
