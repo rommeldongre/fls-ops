@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.bootstrap', 'ngRoute']);
+var myApp = angular.module('myApp', ['ui.bootstrap', 'ngRoute', 'cp.ng.fix-image-orientation']);
 
 myApp.config(function($routeProvider){
 
