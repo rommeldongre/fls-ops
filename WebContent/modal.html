@@ -61,16 +61,16 @@
 </div>
 <div class="modal-body" ng-if="modalOptions.editingItem">
     <div class="content">
-        <form class="form-horizontal">
+        <form class="form-horizontal" ng-init="submit.uid = modalOptions.item.uid">
             <div class="form-group">
                 <label for="item_image" id="image_label" class="col-sm-2 control-label">Add Picture</label>
                 <div class="col-sm-10">
-                    <input type="file" accept="image/*" onchange="angular.element(this).scope().uploadImage(files[0])" />
+                    <input type="file" accept="image/*" onchange="angular.element(this).scope().uploadPrimaryImage(files[0])"/>
                 </div>
             </div>
-            <div class="form-group" ng-init="submit.image = modalOptions.item.image">
+            <div class="form-group" ng-init="submit.image = modalOptions.item.primaryImageLink">
                 <div class="col-lg-12">
-                    <img img-fix-orientation="submit.image" ng-src="{{(submit.image === '' || submit.image === null || submit.image === 'null') ? 'images/imgplaceholder.png' : submit.image}}" width="300" height="300"/>
+                    <img load-image="submit.image" max-width="450" max-height="450" ng-src="" alt="">
                 </div>
             </div>
             <div class="form-group" ng-init="submit.title = modalOptions.item.title">

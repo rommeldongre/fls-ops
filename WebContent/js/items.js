@@ -134,8 +134,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
                 userId: $scope.items[i].userId,
                 leaseTerm: response.leaseTerm,
                 id: $scope.items[i].itemId,
-                leaseValue: response.leaseValue,
-                image: response.image
+                leaseValue: response.leaseValue
             }
             editItemSend(req);
         }, function(){});

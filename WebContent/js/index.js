@@ -13,7 +13,9 @@ indexApp.controller('indexCtrl', ['$scope', 'loginService', function($scope, log
                 token: email,
                 signUpStatus: "email_activated",
                 row: {
-                    auth: password
+                    auth: password,
+                    profilePicture: "",
+				    friendId: null
                 }
             }
             loginSend(req);
@@ -35,6 +37,7 @@ indexApp.controller('indexCtrl', ['$scope', 'loginService', function($scope, log
                     localStorage.setItem("adminloggedin", obj.userId);
                     localStorage.setItem("adminloggedinName", obj.fullName);
 					localStorage.setItem("adminReferralCode", obj.referralCode);
+                    localStorage.setItem("adminloggedinAccess", obj.access_token);
                     window.location.replace("myapp.html#/");
                 }
                 else{
@@ -54,4 +57,6 @@ indexApp.service('loginService', function(){
     
     this.userName = localStorage.getItem("adminloggedinName");
     
+    this.userAccessToken = localStorage.getItem("adminloggedinAccess");
+
 });
