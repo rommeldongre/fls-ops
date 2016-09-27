@@ -1,5 +1,12 @@
 var myApp = angular.module('myApp', ['ui.bootstrap', 'ngRoute', 'cp.ng.fix-image-orientation']);
 
+myApp.run(['loginService', function(loginService){
+
+    if(loginService.user == "" || loginService.user == null || loginService.user == "anonymous")
+        window.location.replace("index.html");
+
+}]);
+
 myApp.config(function($routeProvider){
 
     $routeProvider
@@ -55,7 +62,6 @@ myApp.service('loginService', function(){
     this.userName = localStorage.getItem("adminloggedinName");
 
     this.userAccessToken = localStorage.getItem("adminloggedinAccess");
-
 
     this.logout = function(){
         localStorage.setItem("adminloggedin", "anonymous");
