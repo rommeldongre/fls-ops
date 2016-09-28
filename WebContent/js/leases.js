@@ -113,6 +113,8 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
     var getRating = function(ItemId, LeaseeId){
         modalService.showModal({}, {showFeedback:true, actionButtonText: 'Submit', bodyText: "How was your experience?"}).then(function(result){
             var req = {
+                userId: loginService.user,
+                accessToken: loginService.userAccessToken,
                 itemId: ItemId,
                 leaseeId: LeaseeId,
                 rating: result.rating,
