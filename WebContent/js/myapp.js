@@ -94,7 +94,8 @@ myApp.service('modalService', ['$uibModal', 'loginService', function ($uibModal,
         editingItem: false,
         cancelButtonText: 'Cancel',
         headerText: 'Frrndlease Dashboard Says',
-        bodyText: 'Perform this action?'
+        bodyText: 'Perform this action?',
+        showFeedback: false
     };
 
     this.showModal = function (customModalDefaults, customModalOptions) {
@@ -117,6 +118,16 @@ myApp.service('modalService', ['$uibModal', 'loginService', function ($uibModal,
         if (!tempModalDefaults.controller) {
             tempModalDefaults.controller = function ($scope, $uibModalInstance) {
                 $scope.submit = {};
+
+                $scope.uploadImage = function(file){
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        $scope.$apply(function() {
+                            $scope.submit.image = reader.result;
+                        });
+                    }
+                    reader.readAsDataURL(file);
+                }
 
                 //beginning of image display
                 $scope.uploadPrimaryImage = function(file){

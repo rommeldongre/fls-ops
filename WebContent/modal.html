@@ -58,6 +58,14 @@
         </ul>
     </div>
     <input type="text" class="form-control" ng-if="modalOptions.submitting" ng-model="submit.status">
+    <div ng-if="modalOptions.showFeedback" style="text-align:center;">
+        <div class="row">
+            <div class="col-xs-3"><img ng-click="submit.rating=1" class="ng-class:{'active':submit.rating==1,'inactive':submit.rating!=1}" src="images/Angry.jpg" style="width:40%;text-align:center;"></div>
+            <div class="col-xs-3"><img ng-click="submit.rating=2" class="ng-class:{'active':submit.rating==2,'inactive':submit.rating!=2}" src="images/Sad.jpg" style="width:40%;text-align:center;"></div>
+            <div class="col-xs-3"><img ng-click="submit.rating=3" class="ng-class:{'active':submit.rating==3,'inactive':submit.rating!=3}" src="images/Happy.jpg" style="width:40%;text-align:center;"></div>
+            <div class="col-xs-3"><img ng-click="submit.rating=4" class="ng-class:{'active':submit.rating==4,'inactive':submit.rating!=4}" src="images/Excelent.jpg" style="width:40%;text-align:center;"></div>
+        </div>
+    </div>
 </div>
 <div class="modal-body" ng-if="modalOptions.editingItem">
     <div class="content">

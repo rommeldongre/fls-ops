@@ -97,6 +97,9 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
                          modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
                             function(r){
                                 $scope.leases[i].status = s;
+                                if(s == 'PickedUpIn'){
+                                    getFeedback();
+                                }
                             },
                             function(){});
                     }
@@ -105,6 +108,12 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
                 }
             });
         },function(){});
+    }
+
+    var getFeedback = function(){
+        modalService.showModal({}, {showFeedback:true, actionButtonText: 'Submit', bodyText: "How was your experience?"}).then(function(result){
+            console.log(result);
+        }, function(){});
     }
 
     var getLeases = function(token){
