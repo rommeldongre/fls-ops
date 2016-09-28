@@ -98,7 +98,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
                             function(r){
                                 $scope.leases[i].status = s;
                                 if(s == 'PickedUpIn'){
-                                    getFeedback();
+                                    getRating($scope.leases[i].itemId, $scope.leases[i].requestorUserId);
                                 }
                             },
                             function(){});
@@ -110,9 +110,28 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
         },function(){});
     }
 
-    var getFeedback = function(){
+    var getRating = function(ItemId, LeaseeId){
         modalService.showModal({}, {showFeedback:true, actionButtonText: 'Submit', bodyText: "How was your experience?"}).then(function(result){
-            console.log(result);
+            var req = {
+                itemId: ItemId,
+                leaseeId: LeaseeId,
+                rating: result.rating,
+                feedback: result.feedback
+            }
+            $.ajax({
+                url: '/flsv2/AddItemRating',
+                type: 'post',
+                data: JSON.stringify(req),
+                contentType: "application/json",
+                dataType: "json",
+                success: function(response) {
+                    if(response.code == 0){
+                        modalService.showModal({}, {actionButtonText: 'ok', bodyText: 'Thanks for rating'});
+                    }
+                },
+                error:function() {
+                }
+            });
         }, function(){});
     }
 
