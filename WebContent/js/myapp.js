@@ -94,8 +94,7 @@ myApp.service('modalService', ['$uibModal', 'loginService', function ($uibModal,
         editingItem: false,
         cancelButtonText: 'Cancel',
         headerText: 'Frrndlease Dashboard Says',
-        bodyText: 'Perform this action?',
-        showFeedback: false
+        bodyText: 'Perform this action?'
     };
 
     this.showModal = function (customModalDefaults, customModalOptions) {

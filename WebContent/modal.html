@@ -2,7 +2,39 @@
     <h3>{{modalOptions.headerText}}</h3>
 </div>
 <div class="modal-body" ng-if="!modalOptions.editingItem">
-    <div ng-if="!modalOptions.submitting">{{modalOptions.bodyText}}
+    <div ng-if="!modalOptions.submitting">
+        <div ng-if="modalOptions.leaseStatusOps=='PickedUpIn'" style="text-align:center;" ng-init="submit.rating=-1">
+            How was your experience?
+            <br/><br/>
+            <div class="row">
+                <div class="col-xs-3">
+                    <img ng-click="submit.rating=1" ng-src="{{(submit.rating==-1) ? 'images/very-unhappy-n.jpg' : ((submit.rating==1) ? 'images/very-happy-s.jpg': 'images/very-happy-us.jpg')}}" style="width:40%;text-align:center;">
+                    <br/>
+                    Very unhappy
+                </div>
+                <div class="col-xs-3">
+                    <img ng-click="submit.rating=2" ng-src="{{(submit.rating==-1) ? 'images/unhappy-n.jpg' : ((submit.rating==2) ? 'images/unhappy-s.jpg': 'images/unhappy-us.jpg')}}" style="width:40%;text-align:center;">
+                    <br/>
+                    Unhappy
+                </div>
+                <div class="col-xs-3">
+                    <img ng-click="submit.rating=3" ng-src="{{(submit.rating==-1) ? 'images/happy-n.jpg' : ((submit.rating==3) ? 'images/happy-s.jpg': 'images/happy-us.jpg')}}" style="width:40%;text-align:center;">
+                    <br/>
+                    Happy
+                </div>
+                <div class="col-xs-3">
+                    <img ng-click="submit.rating=4" ng-src="{{(submit.rating==-1) ? 'images/very-happy-n.jpg' : ((submit.rating==4) ? 'images/very-happy-s.jpg': 'images/very-happy-us.jpg')}}" style="width:40%;text-align:center;">
+                    <br/>
+                    Very Happy
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="submit.feedback" placeholder="Write a feedback (Optional)" />
+            </div>
+            <hr/>
+        </div>
+        {{modalOptions.bodyText}}
         <span ng-if="modalOptions.leaseStatusDropdownOps"><i><strong>{{modalOptions.leaseStatusOps}}</strong></i><br/>
             <form class="form-horizontal">
                 <div class="form-group">
@@ -58,34 +90,6 @@
         </ul>
     </div>
     <input type="text" class="form-control" ng-if="modalOptions.submitting" ng-model="submit.status">
-    <div ng-if="modalOptions.showFeedback" style="text-align:center;" ng-init="submit.rating=3">
-        <div class="row">
-            <div class="col-xs-3">
-                <img ng-click="submit.rating=1" class="ng-class:{'active':submit.rating==1,'inactive':submit.rating!=1}" src="images/Angry.jpg" style="width:40%;text-align:center;">
-                <br/>
-                Very unhappy
-            </div>
-            <div class="col-xs-3">
-                <img ng-click="submit.rating=2" class="ng-class:{'active':submit.rating==2,'inactive':submit.rating!=2}" src="images/Sad.jpg" style="width:40%;text-align:center;">
-                <br/>
-                Unhappy
-            </div>
-            <div class="col-xs-3">
-                <img ng-click="submit.rating=3" class="ng-class:{'active':submit.rating==3,'inactive':submit.rating!=3}" src="images/Happy.jpg" style="width:40%;text-align:center;">
-                <br/>
-                Happy
-            </div>
-            <div class="col-xs-3">
-                <img ng-click="submit.rating=4" class="ng-class:{'active':submit.rating==4,'inactive':submit.rating!=4}" src="images/Excelent.jpg" style="width:40%;text-align:center;">
-                <br/>
-                Very Happy
-            </div>
-        </div>
-        <br/>
-        <div class="form-group">
-            <input type="text" class="form-control" ng-model="submit.feedback" placeholder="Write a feedback (Optional)" />
-        </div>
-    </div>
 </div>
 <div class="modal-body" ng-if="modalOptions.editingItem">
     <div class="content">

@@ -98,7 +98,8 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
                             function(r){
                                 $scope.leases[i].status = s;
                                 if(s == 'PickedUpIn'){
-                                    getRating($scope.leases[i].itemId, $scope.leases[i].requestorUserId);
+                                    if(result.rating != -1)
+                                        saveRating(result.rating, result.feedback, $scope.leases[i].itemId, $scope.leases[i].requestorUserId);
                                 }
                             },
                             function(){});
@@ -110,31 +111,29 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
         },function(){});
     }
 
-    var getRating = function(ItemId, LeaseeId){
-        modalService.showModal({}, {showFeedback:true, actionButtonText: 'Submit', bodyText: "How was your experience?"}).then(function(result){
-            var req = {
-                userId: loginService.user,
-                accessToken: loginService.userAccessToken,
-                itemId: ItemId,
-                leaseeId: LeaseeId,
-                rating: result.rating,
-                feedback: result.feedback
-            }
-            $.ajax({
-                url: '/flsv2/AddItemRating',
-                type: 'post',
-                data: JSON.stringify(req),
-                contentType: "application/json",
-                dataType: "json",
-                success: function(response) {
-                    if(response.code == 0){
-                        modalService.showModal({}, {actionButtonText: 'ok', bodyText: 'Thanks for rating'});
-                    }
-                },
-                error:function() {
+    var saveRating = function(Rating, Feedback, ItemId, LeaseeId){
+        var req = {
+            userId: loginService.user,
+            accessToken: loginService.userAccessToken,
+            itemId: ItemId,
+            leaseeId: LeaseeId,
+            rating: Rating,
+            feedback: Feedback
+        }
+        $.ajax({
+            url: '/flsv2/AddItemRating',
+            type: 'post',
+            data: JSON.stringify(req),
+            contentType: "application/json",
+            dataType: "json",
+            success: function(response) {
+                if(response.code == 0){
+                    modalService.showModal({}, {actionButtonText: 'ok', bodyText: 'Thanks for rating'});
                 }
-            });
-        }, function(){});
+            },
+            error:function() {
+            }
+        });
     }
 
     var getLeases = function(token){
