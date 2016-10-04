@@ -167,10 +167,10 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
                     table: "items",
                     operation: "delete",
                     row: {
-                        title: "",
+                        title: $scope.items[i].title,
                         description: "",
                         category: "",
-                        userId: "",
+                        userId: $scope.items[i].userId,
                         leaseTerm: "",
                         id: $scope.items[i].itemId,
                         leaseValue: 1000,
@@ -190,13 +190,13 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
             contentType:"application/json",
             dataType: "json",
             success: function(response) {
-                if(response.Code == 0){
-                    modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
-                        function(r){
+                modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
+                    function(r){
+                        if(response.Code == 0)
                             $scope.items.splice(i,1);
-                        },
-                        function(){});
-                }
+                    },
+                    function(){}
+                );
             },
             error:function() {
             }
