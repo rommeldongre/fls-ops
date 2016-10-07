@@ -1,31 +1,50 @@
-<h3 class="page-header">Requests</h3>
-<div class="table-responsive">
+<div class="row">
+    <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Requests</span>
+    <div class="col-lg-8 col-md-8 pull-right">
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{status}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="changeStatus('Active')">Active</a></li>
+                    <li><a href="" ng-click="changeStatus('Archived')">Archived</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="table-responsive" style="min-height:500px;">
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="text-center">#</th>
-                <th>Name</th>
-                <th>Job Position</th>
-                <th>Since</th>
-                <th class="text-right">Salary</th>
-                <th class="text-right">Actions</th>
+                <th class="text-center">Id</th>
+                <th>Image</th>
+                <th>Owner Address</th>
+                <th>Requestor Address</th>
+                <th>Title</th>
+                <th class="text-center">Owner</th>
+                <th class="text-center">Requestor</th>
+                <th class="text-center">Lease Term</th>
+                <th class="text-center">Lease Value(INR)</th>
+                <th class="text-center">Request Date</th>
+				<th class="text-center" ng-if="status != 'Archived'">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-center">1</td>
-                <td>Andrew Mike</td>
-                <td>Develop</td>
-                <td>2013</td>
-                <td class="text-right">&euro; 99,225</td>
-                <td class="td-actions text-right">
-                    <button type="button" rel="tooltip" title="View Profile" class="btn btn-info btn-simple btn-xs">
-                        <i class="fa fa-user"></i>
-                    </button>
-                    <button type="button" rel="tooltip" title="Edit Profile" class="btn btn-success btn-simple btn-xs">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+            <tr ng-repeat="request in requests | filter : {status: statusFilter}">
+                <td class="text-center">{{request.itemId}}</td>
+                <td><img class="img-rounded" load-image="lease.primaryImageLink" max-width="50" max-height="50" ng-src="" alt="..."/></td>
+                <td class="text-center">{{request.ownerAddress}}<br/>Ph-{{request.ownerMobile}}</td>
+                <td class="text-center">{{request.requestorAddress}}<br/>Ph-{{request.requestorMobile}}</td>
+                <td>{{request.title}}</td>
+                <td class="text-center">{{request.ownerUserId}}</td>
+                <td class="text-center">{{request.requestorUserId}}</td>
+                <td class="text-center">{{request.leaseTerm}}</td>
+                <td class="text-center">{{request.leaseValue}}</td>
+                <td class="text-center">{{request.requestDate | date}}</td>
+				<td class="td-actions text-center" ng-if="status != 'Archived'">
+                    <button class="btn btn-danger btn-simple btn-xs btn-tooltip" data-toggle="tooltip" data-placement="top" title="Archive Request" ng-click="deleteRequest(request.requestId)">
                         <i class="fa fa-times"></i>
                     </button>
                 </td>
