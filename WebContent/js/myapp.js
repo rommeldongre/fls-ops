@@ -30,6 +30,11 @@ myApp.config(function($routeProvider){
         templateUrl : 'requests.html',
         controller : 'requestsCtrl'
     })
+	
+	.when('/events', {
+        templateUrl : 'events.html',
+        controller : 'eventsCtrl'
+    })
 
     .when('/leases', {
         templateUrl : 'leases.html',

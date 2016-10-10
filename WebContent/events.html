@@ -1,0 +1,64 @@
+<div class="row">
+    <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Events</span>
+    <div class="col-lg-8 col-md-8 pull-right">
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{status}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="changeStatus('FLS_ACTIVE')">Active</a></li>
+                    <li><a href="" ng-click="changeStatus('FLS_ARCHIVED')">Archived</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+				From Date : <input type="date" name="fromDate" id="fromDate">
+            </div>
+			<div class="col-md-4">
+                To Date : <input type="date" name="toDate" id="toDate">
+            </div>
+			<span class="input-group-btn">
+                <button class="btn btn-primary btn-fill" type="button" ng-click="searchEvents()">Search</button>
+            </span>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">Id</th>
+				<th class="text-center">Item Id</th>
+                <th class="text-center">Event Date</th>
+                <th class="text-center">From User</th>
+                <th class="text-center">To User</th>
+                <th class="text-center">Event Type</th>
+                <th class="text-center">Read Status</th>
+				<th class="text-center">Delivery Status</th>
+				<th class="text-center">Notification Type</th>
+				<th class="text-center">Message</th>
+				<th class="text-center">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="event in events">
+			 <td class="text-center">{{event.eventId}}</td>
+                <td class="text-center">{{event.itemId}}</td>
+                <td class="text-center">{{event.eventLogDate | date}}</td>
+                <td class="text-center">{{event.fromUserId}}</td>
+                <td class="text-center">{{event.toUserId}}</td>
+                <td class="text-center">{{event.eventType}}</td>
+                <td class="text-center">{{event.readStatus}}</td>
+				<td class="text-center">{{event.deliveryStatus}}</td>
+				<td class="text-center">{{event.notificationType}}</td>
+				<td class="text-center">{{event.message}}</td>
+				<td class="text-center">{{event.status}}</td>
+              </tr>
+        </tbody>
+    </table>
+    <ul class="pagination pull-right">
+        <li ng-click="prevEvents()"><a href="">&laquo;</a></li>
+        <li class="active"><a href="#">{{pageNo}}</a></li>
+        <li ng-click="nextEvents()"><a href="">&raquo;</a></li>
+    </ul>
+</div>
