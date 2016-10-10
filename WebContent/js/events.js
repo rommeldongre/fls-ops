@@ -48,7 +48,7 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
             contentType:"application/json",
             dataType: "json",
             success: function(response) {
-                if(response.returnCode == 0){
+                if(response.code == 0){
                     $scope.$apply(function(){
                         $scope.events = response.resList;
                     });
