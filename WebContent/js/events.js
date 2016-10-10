@@ -37,7 +37,6 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
 			fromDate: FromDate,
 			toDate : ToDate
         }
-		console.log(req);
         displayEvents(req);
     }
 
@@ -87,7 +86,7 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
 		
 		FromDate = document.getElementById("fromDate").value;
 		ToDate= document.getElementById("toDate").value;
-	
+		
 		if(FromDate == "" || FromDate == null|| ToDate == "" || ToDate == null){
 			modalService.showModal({}, {bodyText: "Please enter both FROM and TO Dates", actionButtonText: 'OK'}).then(
                 function(r){
