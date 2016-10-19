@@ -51,6 +51,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
 				leaseTerm: "",
                 image: result.image,
 				id: $scope.leases[i].itemId,
+				leaseId: $scope.leases[i].leaseId,
                 leaseValue: 1000,
                 status: result.status
             }
@@ -84,6 +85,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
 				leaseTerm: "",
                 image: result.image,
 				id: $scope.leases[i].itemId,
+				leaseId: $scope.leases[i].leaseId,
                 leaseValue: 1000,
                 status: s
             }
