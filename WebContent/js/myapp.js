@@ -159,7 +159,7 @@ myApp.service('modalService', ['$uibModal', 'loginService', function ($uibModal,
                                     });
 
                                     $.ajax({
-                                        url: '/flsv2/SaveImageInS3',
+                                        url: '/SaveImageInS3',
                                         type: 'post',
                                         data: JSON.stringify(req),
                                         contentType: "application/x-www-form-urlencoded",
@@ -208,7 +208,7 @@ myApp.service('modalService', ['$uibModal', 'loginService', function ($uibModal,
 
                 var displayCategory = function(req){
                     $.ajax({
-                        url: '/flsv2/GetCategoryList',
+                        url: '/GetCategoryList',
                         type:'get',
                         data: {req: JSON.stringify(req)},
                         contentType:"application/json",
@@ -246,7 +246,7 @@ myApp.service('modalService', ['$uibModal', 'loginService', function ($uibModal,
 
                 var displayLeaseTerm = function(req){
                     $.ajax({
-                        url: '/flsv2/GetLeaseTerms',
+                        url: '/GetLeaseTerms',
                         type:'get',
                         data: {req: JSON.stringify(req)},
                         contentType:"application/json",

@@ -55,7 +55,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
                 leaseValue: 1000,
                 status: result.status
             }
-            $.ajax({ url: '/flsv2/EditItemStatus',
+            $.ajax({ url: '/EditItemStatus',
                 type: 'post',
                 data: {req : JSON.stringify(req)},
                 contentType: "application/x-www-form-urlencoded",
@@ -89,7 +89,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
                 leaseValue: 1000,
                 status: s
             }
-            $.ajax({ url: '/flsv2/EditItemStatus',
+            $.ajax({ url: '/EditItemStatus',
                 type: 'post',
                 data: {req : JSON.stringify(req)},
                 contentType: "application/x-www-form-urlencoded",
@@ -123,7 +123,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
             feedback: Feedback
         }
         $.ajax({
-            url: '/flsv2/AddItemRating',
+            url: '/AddItemRating',
             type: 'post',
             data: JSON.stringify(req),
             contentType: "application/json",
@@ -150,7 +150,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
 
     var displayLeases = function(req){
         $.ajax({
-            url: '/flsv2/GetLeasesByX',
+            url: '/GetLeasesByX',
             type:'post',
             data: JSON.stringify(req),
             contentType:"application/json",
@@ -186,7 +186,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
 		};
 
         $.ajax({
-                url: '/flsv2/AdminOps',
+                url: '/AdminOps',
                 type:'get',
                 data: {req: JSON.stringify(req)},
                 contentType:"application/json",

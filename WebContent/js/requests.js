@@ -29,7 +29,7 @@ requestsApp.controller('requestsCtrl', ['$scope', '$http', 'modalService', 'logi
 
     var displayRequests = function(req){
         $.ajax({
-            url: '/flsv2/GetRequestsByX',
+            url: '/GetRequestsByX',
             type:'post',
             data: JSON.stringify(req),
             contentType:"application/json",
@@ -75,7 +75,7 @@ requestsApp.controller('requestsCtrl', ['$scope', '$http', 'modalService', 'logi
     
     var deleteRequest = function(req){
         $.ajax({
-            url: '/flsv2/DeleteRequest',
+            url: '/DeleteRequest',
             type:'POST',
             data: JSON.stringify(req),
             contentType:"application/json",

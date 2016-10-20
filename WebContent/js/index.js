@@ -26,7 +26,7 @@ indexApp.controller('indexCtrl', ['$scope', 'loginService', function($scope, log
     
     var loginSend = function(req){
         $.ajax({
-            url: '/flsv2/LoginUser',
+            url: '/LoginUser',
             type:'get',
             data: {req: JSON.stringify(req)},
             contentType:"application/json",

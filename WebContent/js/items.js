@@ -45,7 +45,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
 				}
             }
             $.ajax({
-                url: '/flsv2/AdminOps',
+                url: '/AdminOps',
                 type:'get',
                 data: {req: JSON.stringify(req)},
                 contentType:"application/json",
@@ -81,7 +81,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
 
     var displayItems = function(req){
         $.ajax({
-            url: '/flsv2/GetItemStoreByX',
+            url: '/GetItemStoreByX',
             type:'post',
             data: JSON.stringify(req),
             contentType:"application/json",
@@ -141,7 +141,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
     }
 
     var editItemSend = function(req){
-        $.ajax({ url: '/flsv2/EditPosting',
+        $.ajax({ url: '/EditPosting',
             type: 'post',
             data: {req : JSON.stringify(req)},
 			contentType: "application/x-www-form-urlencoded",
@@ -184,7 +184,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
 
     var deleteItemSend = function(req, i){
         $.ajax({
-            url: '/flsv2/AdminOps',
+            url: '/AdminOps',
             type:'get',
             data: {req: JSON.stringify(req)},
             contentType:"application/json",

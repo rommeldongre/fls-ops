@@ -42,7 +42,7 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
 
     var displayEvents = function(req){
         $.ajax({
-            url: '/flsv2/GetEventsByX',
+            url: '/GetEventsByX',
             type:'post',
             data: JSON.stringify(req),
             contentType:"application/json",

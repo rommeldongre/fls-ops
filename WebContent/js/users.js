@@ -48,7 +48,7 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
 
     var displayUsers = function(req){
         $.ajax({
-            url: '/flsv2/AdminOps',
+            url: '/AdminOps',
             type:'get',
             data: {req: JSON.stringify(req)},
             contentType:"application/json",
@@ -83,7 +83,7 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
                 }
             }
             $.ajax({
-                url: '/flsv2/AdminOps',
+                url: '/AdminOps',
                 type:'get',
                 data: {req: JSON.stringify(req)},
                 contentType:"application/json",
@@ -114,7 +114,7 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
                 }
             }
             $.ajax({
-                url: '/flsv2/AdminOps',
+                url: '/AdminOps',
                 type:'get',
                 data: {req: JSON.stringify(req)},
                 contentType:"application/json",
