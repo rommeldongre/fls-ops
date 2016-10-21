@@ -69,6 +69,7 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
         });
     }
 
+    
     // calling the function initially when the file gets loaded
     initialPopulate();
 
