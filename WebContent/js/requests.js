@@ -82,7 +82,7 @@ requestsApp.controller('requestsCtrl', ['$scope', '$http', 'modalService', 'logi
             dataType: "json",
             success: function(response) {
                 if(response.code == 0){
-					modalService.showModal({}, {bodyText: "Request Deleted successfully", showCancel:false, actionButtonText: 'Ok'}).then(function(result){
+					modalService.showModal({}, {bodyText: response.message, showCancel:false, actionButtonText: 'Ok'}).then(function(result){
 						initialPopulate();
 						}, function(){});
                 }else{

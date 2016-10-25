@@ -130,7 +130,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
             dataType: "json",
             success: function(response) {
                 if(response.code == 0){
-                    modalService.showModal({}, {actionButtonText: 'ok', bodyText: 'Thanks for rating'});
+                    modalService.showModal({}, {actionButtonText: 'ok', bodyText: response.message});
                 }
             },
             error:function() {
