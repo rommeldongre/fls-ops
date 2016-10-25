@@ -41,6 +41,11 @@ myApp.config(function($routeProvider){
         controller : 'leasesCtrl'
     })
 
+    .when('/notifications', {
+        templateUrl : 'notifications.html',
+        controller : 'notificationsCtrl'
+    })
+
     .otherwise({redirectTo : '/'});
 
 });
@@ -49,15 +54,59 @@ myApp.controller('myAppCtrl', ['$scope', 'loginService', function($scope, loginS
 
     $scope.isAdmin = true;
 
+    $scope.head = {};
+
     if(loginService.user == 'ops@frrndlease.com'){
         $scope.isAdmin = false;
     }
-
 
     $scope.logout = function(){
         loginService.logout();
     }
 
+    var displayUnreadNotifications = function(){
+        $.ajax({
+			url: '/GetUnreadEventsCount',
+			type: 'post',
+			data: JSON.stringify({userId: loginService.user}),
+			contentType:"application/json",
+			dataType:"json",
+
+			success: function(response) {
+                if(response.code == 0){
+                    $scope.$apply(function(){
+                        $scope.head.unread = response.unreadCount;
+                    });
+                }
+			},
+			error: function() {
+			}
+		});
+    }
+
+    displayUnreadNotifications();
+
+    $scope.openNotifications = function(){
+        window.location.replace("myapp.html#/notifications");
+    }
+
+    $scope.$on('updateEventsCount', function(event){
+        displayUnreadNotifications();
+    });
+
+}]);
+
+myApp.service('eventsCount', ['$rootScope', function($rootScope){
+
+    this.updateEventsCount = function(){
+        $rootScope.$broadcast('updateEventsCount');
+    }
+}]);
+
+myApp.filter('to_trusted', ['$sce', function($sce){
+    return function(text) {
+        return $sce.trustAsHtml(text);
+    };
 }]);
 
 myApp.service('loginService', function(){

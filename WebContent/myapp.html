@@ -68,10 +68,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="">Settings</a></li>
-                <li><a href="">Profile</a></li>
-                <li><a href="">Help</a></li>
-                <li ng-click="logout()"><a href="#"><i class="glyphicon glyphicon-log-out"></i> Logout </a></li>
+                  <li class="btn btn-simple btn-tooltip" data-toggle="tooltip" data-placement="bottom" title="See Notifications" style="font-size:16px;{{(head.unread == 0) ? 'color:grey;' : 'color:white;'}}" ng-click="openNotifications()"><strong ng-if="head.unread!=0">{{head.unread + " "}}</strong><i class="fa fa-bell"></i></li>
+                  <li ng-click="logout()"><a href="#"><i class="glyphicon glyphicon-log-out"></i> Logout </a></li>
               </ul>
             </div>
           </div>
@@ -112,6 +110,7 @@
       <script src="js/requests.js"></script>
       <script src="js/leases.js"></script>
 	  <script src="js/events.js"></script>
+      <script src="js/notification.js"></script>
 
       <script src="js/load-image.all.min.js"></script>
 
