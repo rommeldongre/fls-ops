@@ -142,7 +142,7 @@ leasesApp.controller('leasesCtrl', ['$scope', '$http', 'modalService', 'loginSer
         var req = {
             cookie: token,
             leaseUserId: "",
-            leaseReqUserId: "",
+            leaseReqUserId: loginService.user,
             status: $scope.status
         }
         displayLeases(req);
