@@ -38,6 +38,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+				<th class="text-center">Sign Up Date</th>
                 <th>User Id</th>
                 <th>Profile Pic</th>
                 <th class="text-center">Full Name</th>
@@ -51,6 +52,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in users">
+				<td>{{user.signupDate | date}}</td>
                 <td>{{user.userId}}</td>
                 <td><img ng-src="{{(user.profilePic === '' || user.profilePic === null || user.profilePic === NULL || user.profilePic === 'null') ? 'images/imgplaceholder.png' : user.profilePic}}" style="width:50px;"></td>
                 <td class="text-center">{{user.fullName}}</td>
