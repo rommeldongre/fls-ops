@@ -15,6 +15,10 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
 	var ToDate="";
 
     $scope.status = 'FLS_ACTIVE';
+    
+    $('.datepicker').datepicker({
+             color: 'blue'
+    });
 
     var initialPopulate = function(){
         $scope.events = [];
@@ -84,8 +88,11 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
 	
 	$scope.searchEvents = function(){
 		
-		FromDate = document.getElementById("fromDate").value;
-		ToDate= document.getElementById("toDate").value;
+		var fdate = document.getElementById("fromDate").value;
+		var tdate = document.getElementById("toDate").value;
+		
+		FromDate = formatDate(fdate);
+		ToDate = formatDate(tdate);
 		
 		if(FromDate == "" || FromDate == null|| ToDate == "" || ToDate == null){
 			modalService.showModal({}, {bodyText: "Please enter both FROM and TO Dates", actionButtonText: 'OK'}).then(
@@ -102,4 +109,10 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
 		}
 		
 	}
+	
+	var formatDate = function(usDate){
+		var dateParts = usDate.split(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+		return dateParts[3] + "-" + dateParts[1] + "-" + dateParts[2];
+	}
+	
 }]);
