@@ -45,6 +45,11 @@ myApp.config(function($routeProvider){
         templateUrl : 'notifications.html',
         controller : 'notificationsCtrl'
     })
+	
+	.when('/leads', {
+        templateUrl : 'leads.html',
+        controller : 'leadsCtrl'
+    })
 
     .otherwise({redirectTo : '/'});
 
