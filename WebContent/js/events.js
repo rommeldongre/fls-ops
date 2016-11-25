@@ -16,8 +16,9 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
 
     $scope.status = 'FLS_ACTIVE';
     
-    $('.datepicker').datepicker({
-             color: 'blue'
+    $('#inputGroupEvents .datepicker').datepicker({
+			weekStart:1,
+            color: 'blue'
     });
 
     var initialPopulate = function(){

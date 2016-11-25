@@ -16,7 +16,7 @@ leadsApp.controller('leadsCtrl', ['$scope', '$http', 'modalService', function($s
 
     $scope.type = 'prime';
     
-    $('.datepicker').datepicker({
+    $('#inputGroup .datepicker').datepicker({
              color: 'blue'
     });
 
