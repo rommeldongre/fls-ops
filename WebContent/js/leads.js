@@ -14,7 +14,7 @@ leadsApp.controller('leadsCtrl', ['$scope', '$http', 'modalService', function($s
 	var FromDate="";
 	var ToDate="";
 
-    $scope.type = 'prime';
+    $scope.type = 'uber';
     
     $('#inputGroup .datepicker').datepicker({
              color: 'blue'

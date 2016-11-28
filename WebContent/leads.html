@@ -3,10 +3,10 @@
     <div class="col-lg-8 col-md-8 pull-right">
         <div class="input-group" id="inputGroup">
             <div class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{type === "prime" ? "Prime" : "News Letter"}} <span class="caret"></span>
+                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{type === "uber" ? "Uber" : "News Letter"}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="" ng-click="changeStatus('prime')">Prime</a></li>
+                    <li><a href="" ng-click="changeStatus('uber')">Uber</a></li>
                     <li><a href="" ng-click="changeStatus('news_letter')">News Letter</a></li>
                 </ul>
             </div>
@@ -28,31 +28,19 @@
         <thead>
             <tr>
                 <th class="text-center">Id</th>
-                <th class="text-center">Event Date</th>
-				<th class="text-center">Message</th>
-                <th class="text-center">From User</th>
-                <th class="text-center">To User</th>
-                <th class="text-center">Event Type</th>
-                <th class="text-center">Read Status</th>
-				<th class="text-center">Delivery Status</th>
-				<th class="text-center">Notification Type</th>
-				<th class="text-center">Item Id</th>
-				<th class="text-center">Status</th>
+                <th class="text-center">Lead Date</th>
+				<th class="text-center">Lead Email</th>
+                <th class="text-center">Lead Type</th>
+				<th class="text-center">Lead URL</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="lead in leads">
 			 <td class="text-center">{{lead.leadId}}</td>
                 <td class="text-center">{{lead.leadLogDate | date}}</td>
-				<td class="text-center">{{lead.message}}</td>
-                <td class="text-center">{{lead.fromUserId}}</td>
-                <td class="text-center">{{lead.toUserId}}</td>
+				<td class="text-center">{{lead.leadUserId}}</td>
                 <td class="text-center">{{lead.leadType}}</td>
-                <td class="text-center">{{lead.readStatus}}</td>
-				<td class="text-center">{{lead.deliveryStatus}}</td>
-				<td class="text-center">{{lead.notificationType}}</td>
-				<td class="text-center">{{lead.itemId}}</td>
-				<td class="text-center">{{lead.status}}</td>
+				<td class="text-center">{{lead.leadURL}}</td>
               </tr>
         </tbody>
     </table>
