@@ -6,111 +6,7 @@ var fixedTop = false;
 
 var navbar_initialized = false;
 
-$(document).ready(function(){
-    window_width = $(window).width();
-
-    burger_menu = $('nav[role="navigation"]').hasClass('navbar-burger') ? true : false;
-
-    // Init navigation toggle for small screens
-    if(window_width < 768 || burger_menu){
-        gsdk.initRightMenu();
-    }
-
-    // Activate Morpghing Buttons
-    $('[data-toggle="morphing"]').each(function () {
-          $(this).morphingButton();
-    });
-
-    //  Activate the tooltips
-    $('[rel="tooltip"]').tooltip();
-
-    //      Activate the switches with icons
-    if($('.switch').length != 0){
-        $('.switch')['bootstrapSwitch']();
-    }
-    //      Activate regular switches
-    if($("[data-toggle='switch']").length != 0){
-         $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-    }
-
-    //    Activate bootstrap-select
-    if($(".selectpicker").length != 0){
-        $(".selectpicker").selectpicker();
-    }
-
-    if($(".tagsinput").length != 0){
-        $(".tagsinput").tagsInput();
-    }
-
-    if($('.tagsinput-autocomplete').length != 0){
-        $(".tagsinput-autocomplete").tagsInput({
-            autocomplete_url: [{"value":"Alien","id":1},{"value":"Alex","id":2},{"value":"Alexander","id":3},{"value":"Alejandro","id":4}]
-            //autocomplete_url:'test/fake_plaintext_endpoint.html' //jquery.autocomplete (not jquery ui)
-        });
-    }
-
-    if($('.datepicker').length != 0){
-        $('.datepicker').datepicker({
-             weekStart:1,
-             color: '{color}'
-         });
-    }
-
-
-    $('.btn-tooltip').tooltip();
-    $('.label-tooltip').tooltip();
-
-	// Carousel
-	$('.carousel').carousel({
-      interval: 4000
-    });
-
-    $('.form-control').on("focus", function(){
-        $(this).parent('.input-group').addClass("input-group-focus");
-    }).on("blur", function(){
-        $(this).parent(".input-group").removeClass("input-group-focus");
-    });
-
-    if($('.alert-auto-close').length != 0){
-        setTimeout(function(){
-            $('.alert-auto-close').fadeOut(function(){
-                $(this).remove();
-            });
-        }, 5000);
-    }
-
-    demo.initPickColor();
-
-     // Make the images from the card fill the hole space
-    gsdk.fitBackgroundForCards();
-
-    // Init icon search action for the navbar
-    gsdk.initNavbarSearch();
-
-    // Init popovers
-    gsdk.initPopovers();
-
-    // Init Collapse Areas
-    gsdk.initCollapseArea();
-
-    // Init Sliders
-    gsdk.initSliders();
-
-    //  Init video card actions
-    gsdk.initVideoCards();
-
-});
-
-// activate collapse right menu when the windows is resized
-$(window).resize(function(){
-    if($(window).width() < 768){
-        gsdk.initRightMenu();
-    } else if(!burger_menu && gsdk.misc.navbar_menu_visible){
-        gsdk.toggleSidebarMenu();
-    }
-});
-
-gsdk = {
+var gsdk = {
     misc:{
         navbar_menu_visible: 0
     },
@@ -343,7 +239,7 @@ gsdk = {
     }
 }
 
-demo = {
+var demo = {
     initPickColor: function(){
         $('.pick-class-label').click(function(){
             var new_class = $(this).attr('new-class');
@@ -359,7 +255,7 @@ demo = {
     }
 }
 
-examples = {
+var examples = {
     initContactUsMap: function(){
         var myLatlng = new google.maps.LatLng(18.534391, 73.828634);
         var mapOptions = {
@@ -378,6 +274,112 @@ examples = {
         marker.setMap(map);
         }
 }
+
+$(document).ready(function(){
+    window_width = $(window).width();
+
+    burger_menu = $('nav[role="navigation"]').hasClass('navbar-burger') ? true : false;
+
+    // Init navigation toggle for small screens
+    if(window_width < 768 || burger_menu){
+        gsdk.initRightMenu();
+    }
+
+    // Activate Morpghing Buttons
+    $('[data-toggle="morphing"]').each(function () {
+          $(this).morphingButton();
+    });
+
+    //  Activate the tooltips
+    $('[rel="tooltip"]').tooltip();
+
+    //      Activate the switches with icons
+    if($('.switch').length != 0){
+        $('.switch')['bootstrapSwitch']();
+    }
+    //      Activate regular switches
+    if($("[data-toggle='switch']").length != 0){
+         $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+    }
+
+    //    Activate bootstrap-select
+    if($(".selectpicker").length != 0){
+        $(".selectpicker").selectpicker();
+    }
+
+    if($(".tagsinput").length != 0){
+        $(".tagsinput").tagsInput();
+    }
+
+    if($('.tagsinput-autocomplete').length != 0){
+        $(".tagsinput-autocomplete").tagsInput({
+            autocomplete_url: [{"value":"Alien","id":1},{"value":"Alex","id":2},{"value":"Alexander","id":3},{"value":"Alejandro","id":4}]
+            //autocomplete_url:'test/fake_plaintext_endpoint.html' //jquery.autocomplete (not jquery ui)
+        });
+    }
+
+    if($('.datepicker').length != 0){
+        $('.datepicker').datepicker({
+             weekStart:1,
+             color: '{color}'
+         });
+    }
+
+
+    $('.btn-tooltip').tooltip();
+    $('.label-tooltip').tooltip();
+
+	// Carousel
+	$('.carousel').carousel({
+      interval: 4000
+    });
+
+    $('.form-control').on("focus", function(){
+        $(this).parent('.input-group').addClass("input-group-focus");
+    }).on("blur", function(){
+        $(this).parent(".input-group").removeClass("input-group-focus");
+    });
+
+    if($('.alert-auto-close').length != 0){
+        setTimeout(function(){
+            $('.alert-auto-close').fadeOut(function(){
+                $(this).remove();
+            });
+        }, 5000);
+    }
+
+    demo.initPickColor();
+
+     // Make the images from the card fill the hole space
+    gsdk.fitBackgroundForCards();
+
+    // Init icon search action for the navbar
+    gsdk.initNavbarSearch();
+
+    // Init popovers
+    gsdk.initPopovers();
+
+    // Init Collapse Areas
+    gsdk.initCollapseArea();
+
+    // Init Sliders
+    gsdk.initSliders();
+
+    //  Init video card actions
+    gsdk.initVideoCards();
+
+});
+
+// activate collapse right menu when the windows is resized
+$(window).resize(function(){
+    if($(window).width() < 768){
+        gsdk.initRightMenu();
+    } else if(!burger_menu && gsdk.misc.navbar_menu_visible){
+        gsdk.toggleSidebarMenu();
+    }
+});
+
+
 
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for

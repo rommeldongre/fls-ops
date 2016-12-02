@@ -3,11 +3,12 @@
     <div class="col-lg-8 col-md-8 pull-right">
         <div class="input-group" id="inputGroup">
             <div class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{type === "uber" ? "Uber" : "News Letter"}} <span class="caret"></span>
+                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{type === "uber" ? "Uber" : ( type === "news_letter" ? "News Letter" :"ALL")}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="" ng-click="changeStatus('uber')">Uber</a></li>
                     <li><a href="" ng-click="changeStatus('news_letter')">News Letter</a></li>
+                    <li><a href="" ng-click="changeStatus('all')">ALL</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -17,7 +18,13 @@
                 To Date : <input class="datepicker form-control" type="text" name="toDate" id="toDate">
             </div>
 			<span class="input-group-btn">
-                <button class="btn btn-primary btn-fill" type="button" ng-click="searchLeads()">Filter</button>
+                <button class="btn btn-primary btn-fill" type="button" ng-click="searchLeads()">View</button>	
+            </span>
+			<span class="input-group-btn">
+                <form id="exportLeads" action="/ExportLeads" method="POST" style="">
+					<input type="hidden" name="type" value="{{type}}" />
+					<button type="button" ng-click="exportLeads()" class="btn btn-primary btn-fill">Export</button>
+				</form>
             </span>
         </div>
     </div>

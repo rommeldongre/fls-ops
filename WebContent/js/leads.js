@@ -14,10 +14,11 @@ leadsApp.controller('leadsCtrl', ['$scope', '$http', 'modalService', function($s
 	var FromDate="";
 	var ToDate="";
 
-    $scope.type = 'uber';
-    
+	$scope.type='uber';
+
     $('#inputGroup .datepicker').datepicker({
-             color: 'blue'
+             color: 'blue',
+			 format: 'yyyy-mm-dd'
     });
 
     var initialPopulate = function(){
@@ -31,7 +32,7 @@ leadsApp.controller('leadsCtrl', ['$scope', '$http', 'modalService', function($s
         $scope.type = s;
         initialPopulate();
     }
-
+			
     var getLeads = function(token){
         var req = {
 			userId: null,
@@ -91,8 +92,8 @@ leadsApp.controller('leadsCtrl', ['$scope', '$http', 'modalService', function($s
 		var fdate = document.getElementById("fromDate").value;
 		var tdate = document.getElementById("toDate").value;
 		
-		FromDate = formatDate(fdate);
-		ToDate = formatDate(tdate);
+		FromDate = fdate;
+		ToDate = tdate;
 		
 		if(FromDate == "" || FromDate == null|| ToDate == "" || ToDate == null){
 			modalService.showModal({}, {bodyText: "Please enter both FROM and TO Dates", actionButtonText: 'OK'}).then(
@@ -110,9 +111,24 @@ leadsApp.controller('leadsCtrl', ['$scope', '$http', 'modalService', function($s
 		
 	}
 	
-	var formatDate = function(usDate){
-		var dateParts = usDate.split(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-		return dateParts[3] + "-" + dateParts[1] + "-" + dateParts[2];
+	$scope.exportLeads = function(){
+		var fdate = document.getElementById("fromDate").value;
+		var tdate = document.getElementById("toDate").value;
+				
+		var date1 = document.createElement("input");
+		date1.type = "hidden";
+		date1.name = "fromDate";
+		date1.value = fdate;
+		
+		var date2 = document.createElement("input");
+		date2.type = "hidden";
+		date2.name = "toDate";
+		date2.value = tdate;
+		
+		var f = document.getElementById("exportLeads");
+		f.appendChild(date1);
+		f.appendChild(date2);
+		f.submit();
 	}
 	
 }]);
