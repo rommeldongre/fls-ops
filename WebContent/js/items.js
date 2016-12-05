@@ -1,6 +1,6 @@
 var storeApp = angular.module('myApp');
 
-storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($scope, $http, modalService){
+storeApp.controller('storeCtrl', ['$scope', '$http', 'loginService', 'modalService', function($scope, $http, loginService, modalService){
 
     // setting the defalut page no as one
     $scope.pageNo = 1;
@@ -68,7 +68,7 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
     var getItems = function(token){
         var req = {
             cookie: token,
-            userId: null,
+            userId: loginService.user,
             category: null,
             limit: 10,
             lat: 0.0,
