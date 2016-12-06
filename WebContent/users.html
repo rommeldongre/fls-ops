@@ -48,6 +48,7 @@
                 <th class="text-center">Photo Id</th>
                 <th class="text-center">Verification</th>
                 <th class="text-center">Status</th>
+                <th class="text-center">Signup Status</th>
             </tr>
         </thead>
         <tbody>
@@ -69,6 +70,7 @@
                         <i>{{(user.liveStatus == 0) ? 'On Hold' : 'Live'}}</i>
                     </button>
                 </td>
+                <td class="text-center">{{user.status}}</td>
               </tr>
         </tbody>
     </table>
