@@ -50,6 +50,11 @@ myApp.config(function($routeProvider){
         templateUrl : 'leads.html',
         controller : 'leadsCtrl'
     })
+	
+	.when('/engagements', {
+        templateUrl : 'engagements.html',
+        controller : 'engagementsCtrl'
+    })
 
     .otherwise({redirectTo : '/'});
 

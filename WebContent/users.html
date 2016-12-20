@@ -32,6 +32,46 @@
             </div>
         </div>
     </div>
+	
+	<!-- sample pop up starts here-->
+			<button href="#myModalTable" id="openBtn_userEngage" data-toggle="modal" class="btn btn-default">Modal</button>
+
+			<div class="modal fade" id="myModalTable" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<button type="button" class="close" ng-click="cancel_credit()" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 class="modal-title">User Engagement History</h3>
+					</div>
+					<div class="modal-body">
+					<!--<h5 class="text-center">Credit Timeline is as follows</h5>-->
+					<table id="creditLogTable" class="table table-striped" style='table-layout:fixed;word-wrap:break-word;'>
+						<thead>
+							<tr>
+								<th class="tablecell" style="width: 25%">Start Date</th>
+								<th class="tablecell" style="width: 25%">End Date</th>
+								<th class="tablecell" style="width: 50%">Total Credits</th>
+							</tr>
+							
+						</thead>
+						<tbody ng-repeat="y in engagementsArray">
+							<tr ng-repeat="x in y">
+								<td>{{ x.startDate }}</td>
+								<td>{{ x.endDate }}</td>
+								<td>{{ x.totalCredits }}</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-fill" ng-click="cancel_credit()" data-dismiss="modal" ng-click="">Cancel</button>
+					<button class="btn btn-primary btn-fill" style="text-align: end;margin-top: 0%;" id="next_credits" ng-model="showNext" ng-if="showNext == true" ng-click="loadNextCredit()">Load More</button>
+					</div>
+							
+				</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<!-- sample pop up ends here-->
 </div>
 <hr/>
 <div class="table-responsive">
@@ -59,7 +99,7 @@
                 <td class="text-center">{{user.fullName}}</td>
                 <td class="text-center">{{user.sublocality}}</td>
                 <td class="text-center">{{user.locality}}</td>
-                <td class="text-center">{{user.credit}}</td>
+                <td class="text-center"><a class="btn btn-primary btn-simple" ng-click="showCredits($index)"><u>{{user.credit}}</u></a></td>
                 <td class="text-center"><img ng-src="{{(user.photoId === '' || user.photoId === null || user.photoId === NULL || user.photoId === 'null') ? 'images/imgplaceholder.png' : user.photoId}}" style="width:50px;"></td>
                 <td class="td-actions text-center">
                     <button type="button" rel="tooltip" title="User's Verification" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.verification==1),'btn-danger':(user.verification==0)}"  ng-click="changeVerification($index)">
@@ -80,3 +120,5 @@
         <li ng-click="nextUsers()"><a href="">&raquo;</a></li>
     </ul>
 </div>
+
+

@@ -1,0 +1,86 @@
+<div class="row">
+    <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Engagements</span>
+    <div class="col-lg-8 col-md-8 pull-right">
+        <div class="input-group" id="inputGroup">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{duration === "monthly" ? "Monthly" : ( duration === "weekly" ? "Weekly" :"Daily")}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="changeStatus('monthly')">Monthly</a></li>
+                    <li><a href="" ng-click="changeStatus('weekly')">Weekly</a></li>
+                    <li><a href="" ng-click="changeStatus('daily')">Daily</a></li>
+                </ul>
+            </div>
+			<div class="col-md-4">
+                To Date : <input class="datepicker form-control" type="text" name="toDate" id="toDate">
+            </div>
+			<span class="input-group-btn">
+                <button class="btn btn-primary btn-fill" type="button" ng-click="searchLeads()">View</button>	
+            </span>
+			
+			<!-- sample pop up starts here-->
+			<button href="#myModalTable" id="openBtn_engage" data-toggle="modal" class="btn btn-default">Modal</button>
+
+			<div class="modal fade" id="myModalTable" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<button type="button" class="close" ng-click="cancel_credit()" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 class="modal-title">Engagement History</h3>
+					</div>
+					<div class="modal-body">
+					<!--<h5 class="text-center">Credit Timeline is as follows</h5>-->
+					<table id="creditLogTable" class="table table-striped" style='table-layout:fixed;word-wrap:break-word;'>
+						<thead>
+							<tr>
+								<th class="tablecell" style="width: 25%">Date</th>
+								<th class="tablecell" style="width: 25%">Amount</th>
+								<th class="tablecell" style="width: 50%">User Name</th>
+							</tr>
+							
+						</thead>
+						<tbody ng-repeat="y in engagementsArray">
+							<tr ng-repeat="x in y">
+								<td>{{ x.creditDate }}</td>
+								<td>{{ x.credits }}</td>
+								<td>{{ x.userName }}</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-fill" ng-click="cancel_credit()" data-dismiss="modal" ng-click="">Cancel</button>
+					<button class="btn btn-primary btn-fill" style="text-align: end;margin-top: 0%;" id="next_credits" ng-model="showNext" ng-if="showNext == true" ng-click="loadNextCredit()">Load More</button>
+					</div>
+							
+				</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<!-- sample pop up ends here-->
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">Start Date</th>
+				<th class="text-center">End Date</th>
+                <th class="text-center">Credits</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="engagement in lastEngagements">
+			 <td class="text-center">{{engagement.startDate | date}}</td>
+                <td class="text-center">{{engagement.endDate | date}}</td>
+				<td class="text-center"><a class="btn btn-primary btn-simple" ng-click="showCredits($index)"><u>{{engagement.totalCredits}}</u></a></td>
+              </tr>
+        </tbody>
+    </table>
+    <ul class="pagination pull-right">
+        <li ng-click="prevEngagements()"><a href="">&laquo;</a></li>
+        <li class="active"><a href="#">{{pageNo}}</a></li>
+        <li ng-click="nextEngagements()"><a href="">&raquo;</a></li>
+    </ul>
+</div>
