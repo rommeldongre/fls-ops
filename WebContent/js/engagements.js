@@ -86,7 +86,7 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', 'modalService',
 
     var displayLeads = function(req){
         $.ajax({
-            url: '/GetEngagementsByDate',
+            url: '/GetEngagementsByX',
             type:'post',
             data: JSON.stringify(req),
             contentType:"application/json",
@@ -164,7 +164,7 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', 'modalService',
 	
 	var getCreditSend = function(req){
 		$.ajax({
-            url: '/GetEngagementsByUser',
+            url: '/GetCreditsLogByX',
             type: 'post',
             data: JSON.stringify(req),
 			contentType:"application/json",

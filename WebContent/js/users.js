@@ -169,7 +169,7 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
 
     var displayLeads = function(req){
         $.ajax({
-            url: '/GetEngagementsByDate',
+            url: '/GetEngagementsByX',
             type:'post',
             data: JSON.stringify(req),
             contentType:"application/json",
