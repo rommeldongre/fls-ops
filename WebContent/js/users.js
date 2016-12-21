@@ -10,7 +10,6 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
     var LiveStatus = -1;
 	var lastLeadId = "";
 	var user_id="";
-	$("#openBtn_userEngage").hide();
 
     $scope.verificarionText = 'All';
     $scope.liveStatusText = 'All';
@@ -155,71 +154,9 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
         }
     }
 	
-	var getEngagements = function(id,date){
-        var req = {
-			userId: id,
-			interval: "weekly",
-			cookie: 0,
-			limit: Limit,
-			fromDate: "",
-			toDate : date
-        }
-        displayLeads(req);
-    }
-
-    var displayLeads = function(req){
-        $.ajax({
-            url: '/GetEngagementsByX',
-            type:'post',
-            data: JSON.stringify(req),
-            contentType:"application/json",
-            dataType: "json",
-            success: function(response) {
-                if(response.code == 0){
-                    if(lastLeadId == ""){
-					$scope.$apply(function(){
-						$scope.engagementsArray = [response.resList];
-					});
-                    }else{
-						$scope.$apply(function(){
-							$scope.engagementsArray.push(response.resList);
-						});
-                    }
-                    lastLeadId = response.lastEngagementId;
-                }else{
-                    lastLeadId = "";
-					$scope.showNext = false;
-                }
-            },
-            error:function() {
-				console.log("not able to get user's credit log data");
-            }
-        });
-    }
-	
 	$scope.showCredits = function(index){
-		
-		$("#openBtn_userEngage").click();
-		$scope.showNext = true;
-		
-		user_id= $scope.users[index].userId;
-		var currentdate = new Date();
-		dformat = [ (currentdate.getFullYear()).padLeft(),
-                    currentdate.getMonth()+1,
-                    currentdate.getDate().padLeft()].join('-')+
-                    ' ' +
-                  [ currentdate.getHours().padLeft(),
-                    currentdate.getMinutes().padLeft(),
-                    currentdate.getSeconds().padLeft()].join(':');
-		
-		ToDate = dformat
-		
-		getEngagements(user_id,ToDate);
-	}
-	
-	Number.prototype.padLeft = function(base,chr){
-		var  len = (String(base || 10).length - String(this).length)+1;
-		return len > 0? new Array(len).join(chr || '0')+this : this;
+		var win = window.open("myapp.html#/engagements/"+$scope.users[index].userId+"/"+$scope.users[index].fullName, '_blank');
+		win.focus();
 	}
 	
 	$scope.cancel_credit = function(){

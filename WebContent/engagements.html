@@ -1,6 +1,6 @@
 <div class="row">
-    <span class="col-lg-4 col-md-4" style="font-size: xx-large;">Engagements</span>
-    <div class="col-lg-8 col-md-8 pull-right">
+    <span class="col-lg-5 col-md-5" style="font-size: xx-large;">Engagements <span style="font-size: x-large;">{{ userName}}</span></span>
+    <div class="col-lg-7 col-md-7 pull-right">
         <div class="input-group" id="inputGroup">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{duration === "monthly" ? "Monthly" : ( duration === "weekly" ? "Weekly" :"Daily")}} <span class="caret"></span>
@@ -12,10 +12,10 @@
                 </ul>
             </div>
 			<div class="col-md-4">
-                To Date : <input class="datepicker form-control" type="text" name="toDate" id="toDate">
+                To Date : <input class="datepicker form-control" type="text" ng-model="toDate" name="toDate" id="toDate">
             </div>
 			<span class="input-group-btn">
-                <button class="btn btn-primary btn-fill" type="button" ng-click="searchLeads()">View</button>	
+                <button class="btn btn-primary btn-fill" type="button" ng-click="searchEngagements()">View</button>	
             </span>
 			
 			<!-- sample pop up starts here-->
@@ -34,8 +34,9 @@
 						<thead>
 							<tr>
 								<th class="tablecell" style="width: 25%">Date</th>
-								<th class="tablecell" style="width: 25%">Amount</th>
-								<th class="tablecell" style="width: 50%">User Name</th>
+								<th class="tablecell" style="width: 15%">Amount</th>
+								<th class="tablecell" style="width: 20%">User Name</th>
+								<th class="tablecell" style="width: 40%">Credit Type</th>
 							</tr>
 							
 						</thead>
@@ -44,6 +45,7 @@
 								<td>{{ x.creditDate }}</td>
 								<td>{{ x.credits }}</td>
 								<td>{{ x.userName }}</td>
+								<td>{{ x.creditType }}</td>
 							</tr>
 						</tbody>
 					</table>

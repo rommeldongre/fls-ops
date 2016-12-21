@@ -51,7 +51,7 @@ myApp.config(function($routeProvider){
         controller : 'leadsCtrl'
     })
 	
-	.when('/engagements', {
+	.when('/engagements/:id/:name', {
         templateUrl : 'engagements.html',
         controller : 'engagementsCtrl'
     })
