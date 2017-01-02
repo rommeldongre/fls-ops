@@ -9,6 +9,7 @@ pipelines:
   default:
     - step:
         script: # Modify the commands below to build your repository.
+        - echo "This script runs on every commit"
         - mvn clean install
   branches:
     master:
