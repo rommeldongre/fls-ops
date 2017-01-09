@@ -18,16 +18,46 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', '$routeParams',
 	var userFromDate="";
 	var userToDate="";
 	
-	//getting parameters
-	var user_Id = null;
-	$scope.userName = "";
-	if($routeParams.id!="''"){
-		user_Id = $routeParams.id;
-		$scope.userName = $routeParams.name;
-	}
-	
-	
-	
+    $scope.userId = null;
+    $scope.userName = "";
+
+	//getting user uid from url
+	var user_uid = $routeParams.user_uid;
+
+    var getUserData = function(){
+        if(user_uid != undefined){
+            var req = {
+                table: "users",
+                operation: "userfromuid",
+                row: {
+                    userUid: user_uid
+                }
+            }
+            $.ajax({
+                url: '/AdminOps',
+                type:'get',
+                data: {req: JSON.stringify(req)},
+                contentType:"application/json",
+                dataType: "json",
+                success: function(response) {
+                    if(response.Code == 0){
+                        var obj = JSON.parse(response.Message);
+                        $scope.userId = obj.userId;
+                        $scope.$apply(function(){
+                            $scope.userName = obj.userName;
+                        });
+
+                        // calling the function initially when the file gets loaded
+                        setInitDates();
+                    }
+                },
+                error:function() {
+                }
+            });
+        }else{
+            setInitDates();
+        }
+    }
 
 	$scope.duration='weekly';
 	$scope.interval= 35;
@@ -75,7 +105,7 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', '$routeParams',
 	
     var getEngagements = function(token){
         var req = {
-			userId: user_Id,
+			userId: $scope.userId,
 			interval: $scope.duration,
 			cookie: token,
 			limit: $scope.limit,
@@ -87,7 +117,7 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', '$routeParams',
 	
 	var getEngagementsCont = function(token){
         var req = {
-			userId: user_Id,
+			userId: $scope.userId,
 			interval: $scope.duration,
 			cookie: 0,
 			limit: $scope.limit,
@@ -119,9 +149,7 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', '$routeParams',
         });
     }
 
-    // calling the function initially when the file gets loaded
-	setInitDates();
-	
+    getUserData();
 	
     $scope.nextEngagements = function(){
         if(lastEngagementId != -1){
@@ -166,7 +194,7 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', '$routeParams',
 	
 	var getCredit = function(Offset,FromDate,ToDate){
 		var req = {
-			userId : user_Id,
+			userId : $scope.userId,
 			cookie: Offset,
 			limit: $scope.limit,
 			fromDate: FromDate,

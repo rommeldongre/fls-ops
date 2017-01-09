@@ -155,7 +155,7 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
     }
 	
 	$scope.showCredits = function(index){
-		var win = window.open("myapp.html#/engagements/"+$scope.users[index].userId+"/"+$scope.users[index].fullName, '_blank');
+		var win = window.open("myapp.html#/engagements/"+$scope.users[index].userUid, '_blank');
 		win.focus();
 	}
 	
