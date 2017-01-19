@@ -57,7 +57,10 @@ storeApp.controller('storeCtrl', ['$scope', '$http', 'modalService', function($s
                                 $scope.items[i].status = result.status;
                             },
                             function(){});
-                    }
+                    }else{
+						modalService.showModal({}, {bodyText: response.Message, actionButtonText: 'OK'}).then(
+                            function(){});
+					}
                 },
                 error:function() {
                 }
