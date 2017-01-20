@@ -31,18 +31,20 @@
     <table class="table table-striped">
         <thead>
             <tr>
+				<th class="tablecell" style="width: 10%">Order Id</th>
                 <th class="tablecell" style="width: 15%">Date</th>
 				<th class="tablecell" style="width: 10%">Amount</th>
 				<th class="tablecell" style="width: 10%">User Name</th>
 				<th class="tablecell" style="width: 10%">User Id</th>
-				<th class="tablecell" style="width: 15%">Promo Code</th>
-				<th class="tablecell" style="width: 20%">Razor Pay Id</th>
+				<th class="tablecell" style="width: 10%">Promo Code</th>
+				<th class="tablecell" style="width: 15%">Razor Pay Id</th>
 				<th class="tablecell" style="width: 10%">Credit Id</th>
 				<th class="tablecell" style="width: 10%">Order type</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="order in orders">
+				<td>{{ order.orderId }}</td>
 				<td>{{ order.orderDate }}</td>
 				<td>{{ order.amount }}</td>
 				<td>{{ order.orderUserName }}</td>
