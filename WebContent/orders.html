@@ -44,8 +44,15 @@
         </thead>
         <tbody>
             <tr ng-repeat="order in orders">
-				<td>{{ order.orderId }}</td>
-				<td>{{ order.orderDate }}</td>
+				<td>
+					<form id="invoice" action="/GetOrderInvoice" method="POST" target="_blank" style="display:inline;">
+						<input type="hidden" name="orderId" value="{{order.orderId }}" />
+						<button type="submit" class="btn btn-primary btn-fill btn-sm">
+							{{ order.orderId }}
+						</button>
+					</form>
+				</td>
+				<td>{{ order.orderDate| date }}</td>
 				<td>{{ order.amount }}</td>
 				<td>{{ order.orderUserName }}</td>
 				<td>{{ order.orderUserId }}</td>
