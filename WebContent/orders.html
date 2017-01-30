@@ -94,7 +94,7 @@
 			</thead>
 			<tbody ng-repeat="y in creditDetailsArray">
 				<tr ng-repeat="x in y">
-					<td>{{ x.credit_date }}</td>
+					<td>{{ x.credit_date | date}}</td>
 					<td style="text-align:center;">{{ x.credit_amount }}</td>
 					<td>{{ x.userName }}</td>
 					<td>{{ x.credit_type }}</td>
@@ -136,7 +136,7 @@
 			</thead>
 			<tbody ng-repeat="y in orderDetailsArray">
 				<tr ng-repeat="x in y">
-					<td>{{ x.paymentDate }}</td>
+					<td>{{ x.paymentDate | date}}</td>
 					<td style="text-align:center;">{{ x.amount }}</td>
 					<td>{{ x.paymentId }}</td>
 					<td>{{ x.paymentUserEmail }}</td>

@@ -94,6 +94,8 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', '$routeParams',
 		ToDate = currentdate.getFullYear()+'-' + (currentdate.getMonth()+1) + '-'+currentdate.getDate();
 		$scope.toDate = ToDate;
 		ToDate = ToDate + time;
+		ToDate= new Date(ToDate);
+		ToDate = ToDate.getTime();
 		lastEngagementIds = [ToDate];
 		getEngagements(0);
 	}
@@ -173,6 +175,8 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', '$routeParams',
 		var tdate = document.getElementById("toDate").value;
 		var time = " 00:00:00";
 		ToDate = tdate+time;
+		ToDate= new Date(ToDate);
+		ToDate = ToDate.getTime();
 		
 		if(ToDate == "" || ToDate == null){
 			modalService.showModal({}, {bodyText: "Please enter TO Date", actionButtonText: 'OK'}).then(

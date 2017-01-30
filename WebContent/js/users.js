@@ -8,11 +8,13 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
     var Limit = 10;
     var Verification = -1;
     var LiveStatus = -1;
+	var UserStatus = -1;
 	var lastLeadId = "";
 	var user_id="";
 
     $scope.verificarionText = 'All';
     $scope.liveStatusText = 'All';
+	$scope.userStatusText = 'All';
 
     var initialPopulate = function(){
         $scope.users = [];
@@ -33,6 +35,12 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
         $scope.liveStatusText = lst;
         initialPopulate();
     }
+	
+	$scope.changeUserStatusFilter = function(us, ust){
+        UserStatus = us;
+        $scope.userStatusText = ust;
+        initialPopulate();
+    }
 
     var getUsers = function(c){
         var req = {
@@ -40,7 +48,8 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
             operation: "getusers",
             row: {
                 verification: Verification,
-                liveStatus: LiveStatus
+                liveStatus: LiveStatus,
+				userStatus : UserStatus
             },
             cookie: c,
             limit: Limit
