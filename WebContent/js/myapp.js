@@ -60,6 +60,12 @@ myApp.config(function($routeProvider){
         templateUrl : 'orders.html',
         controller : 'ordersCtrl'
     })
+	
+	.when('/promocode', {
+        templateUrl : 'promocode.html',
+        controller : 'promocodeCtrl'
+    })
+	
     .otherwise({redirectTo : '/'});
 
 });
