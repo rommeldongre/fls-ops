@@ -66,6 +66,11 @@ myApp.config(function($routeProvider){
         controller : 'promocodeCtrl'
     })
 	
+	.when('/adminpages', {
+        templateUrl : 'adminpages.html',
+        controller : 'adminpagesCtrl'
+    })
+	
     .otherwise({redirectTo : '/'});
 
 });
