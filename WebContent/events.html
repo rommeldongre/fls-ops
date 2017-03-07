@@ -3,11 +3,15 @@
     <div class="col-lg-8 col-md-8 pull-right">
         <div class="input-group" id="inputGroupEvents">
             <div class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{status === "FLS_ACTIVE" ? "Active" : "Archived"}} <span class="caret"></span>
+                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{status === "ActiveInApp" ? "ActiveInApp" : ( status === "ArchivedInApp" ? "ArchivedInApp" : (status === "NotInApp" ? "NotInApp" :"All"))}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="" ng-click="changeStatus('FLS_ACTIVE')">Active</a></li>
-                    <li><a href="" ng-click="changeStatus('FLS_ARCHIVED')">Archived</a></li>
+                    <!--<li><a href="" ng-click="changeStatus('FLS_ACTIVE')">Active</a></li>
+                    <li><a href="" ng-click="changeStatus('FLS_ARCHIVED')">Archived</a></li>-->
+					<li><a href="" ng-click="changeStatus('ActiveInApp')">ActiveInApp</a></li>
+					<li><a href="" ng-click="changeStatus('ArchivedInApp')">ArchivedInApp</a></li>
+					<li><a href="" ng-click="changeStatus('NotInApp')">NotInApp</a></li>
+					<li><a href="" ng-click="changeStatus('All')">All</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
