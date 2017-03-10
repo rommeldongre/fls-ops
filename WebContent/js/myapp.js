@@ -61,6 +61,16 @@ myApp.config(function($routeProvider, ChartJsProvider){
         controller : 'ordersCtrl'
     })
 
+	.when('/promocode', {
+        templateUrl : 'promocode.html',
+        controller : 'promocodeCtrl'
+    })
+
+	.when('/adminpages', {
+        templateUrl : 'adminpages.html',
+        controller : 'adminpagesCtrl'
+    })
+
     .when('/reports', {
         templateUrl : 'reports.html',
         controller : 'reportsCtrl'
