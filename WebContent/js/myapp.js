@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.bootstrap', 'ngRoute', 'cp.ng.fix-image-orientation']);
+var myApp = angular.module('myApp', ['ui.bootstrap', 'ngRoute', 'cp.ng.fix-image-orientation', 'chart.js']);
 
 myApp.run(['loginService', function(loginService){
 
@@ -7,7 +7,7 @@ myApp.run(['loginService', function(loginService){
 
 }]);
 
-myApp.config(function($routeProvider){
+myApp.config(function($routeProvider, ChartJsProvider){
 
     $routeProvider
 
@@ -60,7 +60,15 @@ myApp.config(function($routeProvider){
         templateUrl : 'orders.html',
         controller : 'ordersCtrl'
     })
+
+    .when('/reports', {
+        templateUrl : 'reports.html',
+        controller : 'reportsCtrl'
+    })
+
     .otherwise({redirectTo : '/'});
+
+    ChartJsProvider.setOptions({ colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
 
 });
 
