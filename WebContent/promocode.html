@@ -1,0 +1,81 @@
+<div class="row">
+    <h3 class="col-lg-2 col-md-2"><strong>Promo Codes</strong></h3>
+    <div class="col-lg-10 col-md-10 pull-right">
+        <div class="input-group" id="inputGroup">
+			<!--<div class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" ng-click="addCode()" data-target="#promoCodeModal">Add Promo Code</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>-->
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{type === "FLS_EXTERNAL" ? "EXTERNAL" : ( type === "FLS_INTERNAL" ? "INTERNAL" :"ALL")}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+					<li><a href="" ng-click="changeStatus('FLS_ALL')">ALL</a></li>
+                    <li><a href="" ng-click="changeStatus('FLS_EXTERNAL')">EXTERNAL</a></li>
+                    <li><a href="" ng-click="changeStatus('FLS_INTERNAL')">INTERNAL</a></li>
+                </ul>
+            </div>
+			<!--<div class="col-md-2">
+				 <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" ng-click="addCode()" data-target="#promoCodeModal">Add Promo Code</button>
+            </div>-->
+			<div class="col-md-2">
+				From Date <input class="datepicker form-control" type="text" name="fromDate" id="fromDate">
+            </div>
+			<div class="col-md-2">
+                To Date : <input class="datepicker form-control" type="text" ng-model="toDate" name="toDate" id="toDate">
+            </div>
+			<div class="col-md-5">
+                Search :<input type="text" class="form-control" ng-keypress="($event.charCode==13)?searching():return" placeholder="Search here..." ng-model="searchString" >
+			</div>
+			<span class="input-group-btn">
+                <button class="btn btn-primary btn-fill" type="button" ng-click="searchPromoCodes()">View</button>
+			</span>
+			&nbsp;&nbsp;&nbsp;
+			<span class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" ng-click="addCode()" data-target="#promoCodeModal">Add Promo Code</button>
+			</span>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+				<th class="tablecell" style="width: 10%">Code Id</th>
+                <th class="tablecell" style="width: 15%">Expiry Date</th>
+				<th class="tablecell" style="width: 10%">Credits</th>
+				<th class="tablecell" style="width: 15%">Promo Code</th>
+				<th class="tablecell" style="width: 10%">Credit Count</th>
+				<th class="tablecell" style="width: 15%">Per Person Count</th>
+				<th class="tablecell" style="width: 10%">Code type</th>
+				<th class="tablecell" style="width: 15%">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="promo in promos">
+				<td>{{ promo.promoCodeId }}</td>
+				<td>{{ promo.expiryDate | date }}</td>
+				<td>{{ promo.credits }}</td>
+				<td>{{ promo.promoCode }}</td>
+				<td class="text-center"><a class="btn btn-primary btn-simple" ng-click="showOrderDetails($index)"><u>{{promo.count}}</u></a></td>
+				<td class="text-center"><a class="btn btn-primary btn-simple" ng-click="showCreditDetails($index)"><u>{{promo.personCount}}</u></a></td>
+				<td>{{ promo.codeType }}</td>
+				<td class="td-actions text-center">
+                    <button class="btn btn-success btn-simple btn-xs btn-tooltip" data-toggle="modal" data-target="#promoCodeModal" title="Edit Promo Code" ng-click="editCode($index)">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-simple btn-xs btn-tooltip" data-toggle="tooltip" data-placement="top" title="Delete Promo Code" ng-click="deleteCode($index)">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <br>
+                </td>
+			  </tr>
+        </tbody>
+    </table>
+    <ul class="pagination pull-right">
+        <li ng-click="prevCodes()"><a href="">&laquo;</a></li>
+        <li class="active"><a href="#">{{pageNo}}</a></li>
+        <li ng-click="nextCodes()"><a href="">&raquo;</a></li>
+    </ul>
+</div>
+<div ng-include="'promocodemodal.html'"></div>

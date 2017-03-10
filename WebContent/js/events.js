@@ -14,7 +14,7 @@ eventsApp.controller('eventsCtrl', ['$scope', '$http', 'modalService', function(
 	var FromDate="";
 	var ToDate="";
 
-    $scope.status = 'FLS_ACTIVE';
+    $scope.status = 'ActiveInApp';
     
     $('#inputGroupEvents .datepicker').datepicker({
 			weekStart:1,

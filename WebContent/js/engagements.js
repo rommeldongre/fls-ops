@@ -91,7 +91,7 @@ engagementsApp.controller('engagementsCtrl', ['$scope', '$http', '$routeParams',
 		var currentdate = new Date();
 		var time = " 00:00:00";
 		
-		ToDate = currentdate.getFullYear()+'-' + (currentdate.getMonth()+1) + '-'+currentdate.getDate();
+		ToDate = currentdate.getFullYear()+'-' + (currentdate.getMonth()+1) + '-'+ (currentdate.getDate()+1);
 		$scope.toDate = ToDate;
 		ToDate = ToDate + time;
 		ToDate= new Date(ToDate);

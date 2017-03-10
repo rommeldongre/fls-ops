@@ -1,0 +1,38 @@
+    <!--<style>
+		.datepicker{z-index:1151 !important;}
+	</style>-->
+	<div ng-controller="promoCodeModalCtrl" class="modal modal-small fade" id="promoCodeModal" tabindex="-1" role="dialog" aria-hidden="false" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closePromo()">&times;</button>
+                    <h4 class="modal-title text-center">{{headingText}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="form">
+                        <div class="form-group">
+                            Promo Code: <input name="promoCode" class="form-control" ng-model="promoCode" placeholder="Promo Code" required autofocus/>
+                        </div>
+                        <div class="form-group">
+                            <!--<input name="name" id="user_fullname" type="text" class="form-control" ng-model="name" placeholder="Name*" required>-->
+							 Expiry Date(YYYY-MM-DD) : <input class="datepicker form-control" style="z-index:1151;!important;" type="text" ng-model="expiryDate" name="expiryDate" id="expiryDate">
+                        </div>
+                        <div class="form-group">
+                            Credit : <input name="credit" id="credit" type="text" class="form-control" ng-model="credit" placeholder="Credit" required/>
+                        </div>
+                        <div class="form-group">
+                            Count <input name="count" id="count" ng-model="count" type="text" class="form-control" ng-model="count" placeholder="Credit Count" />
+                        </div>
+                        <div class="form-group">
+                            Per Person Count<input name="personCount" id="personCount" type="text" ng-model="personCount" class="form-control" placeholder="Per Person Count" />
+                        </div>
+                        <div class="form-group">
+                            External Promo Code<input name="codeType" id="codeType" type="checkbox" ng-model="codeType" ng-init='codeType=true'  class="form-control" placeholder="External Code(Y/N)" checked>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-fill btn-block" ng-if="!editPromo" ng-click="addPromoCode()">Add Code</button>
+						<button type="button" class="btn btn-primary btn-fill btn-block" ng-if="editPromo" ng-click="editPromoCode()"> Edit Code </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
