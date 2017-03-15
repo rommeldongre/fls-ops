@@ -50,38 +50,53 @@
         <div class="col-lg-8 col-md-8" style="border-right:1px solid #ccc">
             <div class="row">
                 <div class="col-md-2 col-md-offset-5">
-                    <label class="checkbox checkbox-green" for="cumulative" ng-click="checkbox.cumulative = !checkbox.cumulative">
-                        <input type="checkbox" id="cumulative">Cumulative
+                    <label ng-click="isCumulative = !isCumulative" style="cursor:pointer;color:green;">
+                        <span class="icons">
+                           <span ng-if="!isCumulative" class="fa fa-square-o"></span>
+                           <span ng-if="isCumulative" class="fa fa-check-square-o"></span>
+                        </span>Cumulative
                     </label>
                 </div>
             </div>
-            <canvas id="bar" class="chart chart-bar" chart-data="checkbox.cumulative ? cumulativeData : data" chart-labels="labels" chart-series="series">
+            <canvas ng-if="!isCumulative" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+            </canvas>
+            <canvas ng-if="isCumulative" id="line" class="chart chart-line" chart-data="cumulativeData" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
             </canvas>
         </div>
         <div class="col-lg-2 col-md-2 col-lg-offset-1 col-md-offset-1" style="margin-top:4%;">
-            <label class="checkbox checkbox-green" for="checkbox1">
-                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
-                Sign Up
+            <label ng-click="checkbox.signUp = !checkbox.signUp" style="cursor:pointer;color:green;">
+                <span class="icons">
+                   <span ng-if="!checkbox.signUp" class="fa fa-square-o"></span>
+                   <span ng-if="checkbox.signUp" class="fa fa-check-square-o"></span>
+                </span>Sign Up
             </label>
-            <br/>
-            <label class="checkbox checkbox-green" for="checkbox1">
-                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
-                Posts
+            <br/><br/>
+            <label ng-click="checkbox.requests = !checkbox.requests" style="cursor:pointer;color:green;">
+                <span class="icons">
+                   <span ng-if="!checkbox.requests" class="fa fa-square-o"></span>
+                   <span ng-if="checkbox.requests" class="fa fa-check-square-o"></span>
+                </span>Requests
             </label>
-            <br/>
-            <label class="checkbox checkbox-green" for="checkbox1">
-                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
-                Requests
+            <br/><br/>
+            <label ng-click="checkbox.leases = !checkbox.leases" style="cursor:pointer;color:green;">
+                <span class="icons">
+                   <span ng-if="!checkbox.leases" class="fa fa-square-o"></span>
+                   <span ng-if="checkbox.leases" class="fa fa-check-square-o"></span>
+                </span>Leases
             </label>
-            <br/>
-            <label class="checkbox checkbox-green" for="checkbox1">
-                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
-                Leases
+            <br/><br/>
+            <label ng-click="checkbox.items = !checkbox.items" style="cursor:pointer;color:green;">
+                <span class="icons">
+                   <span ng-if="!checkbox.items" class="fa fa-square-o"></span>
+                   <span ng-if="checkbox.items" class="fa fa-check-square-o"></span>
+                </span>Items
             </label>
-            <br/>
-            <label class="checkbox checkbox-green" for="checkbox1">
-                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
-                Wishes
+            <br/><br/>
+            <label ng-click="checkbox.wishes = !checkbox.wishes" style="cursor:pointer;color:green;">
+                <span class="icons">
+                   <span ng-if="!checkbox.wishes" class="fa fa-square-o"></span>
+                   <span ng-if="checkbox.wishes" class="fa fa-check-square-o"></span>
+                </span>Wishes
             </label>
         </div>
     </div>

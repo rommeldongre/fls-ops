@@ -2,17 +2,17 @@ var reportsApp = angular.module('myApp');
 
 reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', function ($scope, reportsApi, $filter) {
 
-    //    $scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "December"];
-    //    $scope.series = ['Sign Up', 'Requests', 'Leases'];
-    //    $scope.data = [
-    //        [65, 59, 80, 81, 56, 55, 40, 81, 56, 55, 40],
-    //        [28, 48, 40, 19, 86, 27, 90, 81, 56, 55, 40],
-    //        [78, 78, 90, 89, 36, 77, 50, 31, 36, 75, 20]
-    //      ];
+    $scope.isCumulative = false;
 
     $scope.checkbox = {
-        cumulative: false
+        signUp: true,
+        requests: false,
+        leases: false,
+        items: true,
+        wishes: false
     };
+
+    var origSeries, origData;
 
     $scope.onClick = function (points, evt) {
         console.log(points, evt);
@@ -59,6 +59,8 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
                 });
                 $scope.labels = res.labels;
                 $scope.series = res.series;
+                origSeries = angular.copy(res.series);
+                origData = angular.copy(res.data);
                 $scope.data = res.data;
                 $scope.cumulativeData = angular.copy(res.data);
                 calcCumulative();
@@ -84,6 +86,10 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
             });
         });
     }
+
+    $scope.$watch('checkbox', function(newCheckbox){
+        console.log(newCheckbox);
+    }, true);
 
 }]);
 
