@@ -46,9 +46,43 @@
 </div>
 <hr/>
 <div class="container" style="min-height:500px;">
-    <div class="row">
-        <div class="col-lg-9">
-            <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick"></canvas>
+    <div class="row" style="display:flex;flex-wrap:wrap;">
+        <div class="col-lg-8 col-md-8" style="border-right:1px solid #ccc">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5">
+                    <label class="checkbox checkbox-green" for="cumulative" ng-click="checkbox.cumulative = !checkbox.cumulative">
+                        <input type="checkbox" id="cumulative">Cumulative
+                    </label>
+                </div>
+            </div>
+            <canvas id="bar" class="chart chart-bar" chart-data="checkbox.cumulative ? cumulativeData : data" chart-labels="labels" chart-series="series">
+            </canvas>
+        </div>
+        <div class="col-lg-2 col-md-2 col-lg-offset-1 col-md-offset-1" style="margin-top:4%;">
+            <label class="checkbox checkbox-green" for="checkbox1">
+                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
+                Sign Up
+            </label>
+            <br/>
+            <label class="checkbox checkbox-green" for="checkbox1">
+                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
+                Posts
+            </label>
+            <br/>
+            <label class="checkbox checkbox-green" for="checkbox1">
+                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
+                Requests
+            </label>
+            <br/>
+            <label class="checkbox checkbox-green" for="checkbox1">
+                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
+                Leases
+            </label>
+            <br/>
+            <label class="checkbox checkbox-green" for="checkbox1">
+                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" checked>
+                Wishes
+            </label>
         </div>
     </div>
 </div>

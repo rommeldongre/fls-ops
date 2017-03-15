@@ -9,6 +9,11 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
     //        [28, 48, 40, 19, 86, 27, 90, 81, 56, 55, 40],
     //        [78, 78, 90, 89, 36, 77, 50, 31, 36, 75, 20]
     //      ];
+
+    $scope.checkbox = {
+        cumulative: false
+    };
+
     $scope.onClick = function (points, evt) {
         console.log(points, evt);
     };
@@ -37,8 +42,8 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
     };
 
     $scope.fromDate = new Date();
+    $scope.fromDate.setDate($scope.fromDate.getDate() - 7 * 10);
     $scope.toDate = new Date();
-    $scope.toDate.setDate($scope.toDate.getDate() + 7 * 10);
 
     var generateReport = function () {
         reportsApi.getReport({
@@ -49,9 +54,14 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
         }).then(
             function (response) {
                 var res = response.data;
+                res.labels.forEach(function(label, index, labels){
+                    labels[index] = $filter('date')(new Date(Date.parse(label)), 'd MMM yy');
+                });
                 $scope.labels = res.labels;
                 $scope.series = res.series;
                 $scope.data = res.data;
+                $scope.cumulativeData = angular.copy(res.data);
+                calcCumulative();
             },
             function (error) {
                 console.log(error);
@@ -64,6 +74,16 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
     }
 
     generateReport();
+
+    var calcCumulative = function() {
+        $scope.cumulativeData.forEach(function(d, i){
+            var total = 0;
+            d.forEach(function(c, j) {
+                total = total + c;
+                $scope.cumulativeData[i][j] = total;
+            });
+        });
+    }
 
 }]);
 
