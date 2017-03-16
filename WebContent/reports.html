@@ -3,11 +3,11 @@
     <div class="col-lg-1 col-md-1">
         <div class="input-group">
             <div class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">WEEKLY <span class="caret"></span>
+                <button type="button" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{freq}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="">WEEKLY</a></li>
-                    <li><a href="">MONTHLY</a></li>
+                    <li><a ng-click="freq='WEEKLY'">WEEKLY</a></li>
+                    <li><a ng-click="freq='MONTHLY'">MONTHLY</a></li>
                 </ul>
             </div>
         </div>

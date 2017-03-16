@@ -6,7 +6,9 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
     $scope.fromDate.setDate($scope.fromDate.getDate() - 7 * 10);
     $scope.toDate = new Date();
 
-    $scope.isCumulative = false;
+    $scope.isCumulative = true;
+
+    $scope.freq = 'MONTHLY';
 
     $scope.reports = [
         {
@@ -49,17 +51,20 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
     var generateReport = function () {
         reportsApi.getReport({
             report: 'USER_TRACTION',
-            freq: 'WEEKLY',
+            freq: $scope.freq,
             from: $filter('date')(new Date(Date.parse($scope.fromDate)), 'yyyy-MM-dd'),
             to: $filter('date')(new Date(Date.parse($scope.toDate)), 'yyyy-MM-dd')
         }).then(
             function (response) {
                 var res = response.data;
+                var format = 'd MMM yy';
+                if($scope.freq == 'MONTHLY')
+                    format = 'MMMM';
                 res.labels.forEach(function(label, index, labels){
                     if(index == 0)
-                        labels[index] = "<" + $filter('date')(new Date(Date.parse(label)), 'd MMM yy');
+                        labels[index] = "<" + $filter('date')(new Date(Date.parse(label)), format);
                     else
-                        labels[index] = $filter('date')(new Date(Date.parse(label)), 'd MMM yy');
+                        labels[index] = $filter('date')(new Date(Date.parse(label)), format);
                 });
                 $scope.labels = res.labels;
 
