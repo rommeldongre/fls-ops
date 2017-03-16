@@ -55,7 +55,10 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
             function (response) {
                 var res = response.data;
                 res.labels.forEach(function(label, index, labels){
-                    labels[index] = $filter('date')(new Date(Date.parse(label)), 'd MMM yy');
+                    if(index == 0)
+                        labels[index] = "<" + $filter('date')(new Date(Date.parse(label)), 'd MMM yy');
+                    else
+                        labels[index] = $filter('date')(new Date(Date.parse(label)), 'd MMM yy');
                 });
                 $scope.labels = res.labels;
                 $scope.series = res.series;

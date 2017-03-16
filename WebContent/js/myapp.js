@@ -12,8 +12,8 @@ myApp.config(function($routeProvider, ChartJsProvider){
     $routeProvider
 
     .when('/', {
-        templateUrl : 'leases.html',
-        controller : 'leasesCtrl'
+        templateUrl : 'reports.html',
+        controller : 'reportsCtrl'
     })
 
     .when('/users', {
