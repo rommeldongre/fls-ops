@@ -58,12 +58,21 @@
                     </label>
                 </div>
             </div>
-            <canvas ng-if="!isCumulative" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+            <canvas ng-if="!isCumulative" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-colors="colors">
             </canvas>
-            <canvas ng-if="isCumulative" id="line" class="chart chart-line" chart-data="cumulativeData" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
+            <canvas ng-if="isCumulative" id="line" class="chart chart-line" chart-data="cumulativeData" chart-labels="labels" chart-series="series" chart-colors="colors" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
             </canvas>
         </div>
         <div class="col-lg-2 col-md-2 col-lg-offset-1 col-md-offset-1" style="margin-top:4%;">
+            <div ng-repeat="report in reports">
+                <label ng-click="changeDisplay($index)" style="cursor:pointer;color:{{report.color}};">
+                    <span class="icons">
+                       <span ng-if="!report.display" class="fa fa-square-o"></span>
+                       <span ng-if="report.display" class="fa fa-check-square-o"></span>
+                    </span>{{report.name}}
+                </label>
+            </div>
+<!--
             <label ng-click="checkbox.signUp = !checkbox.signUp" style="cursor:pointer;color:green;">
                 <span class="icons">
                    <span ng-if="!checkbox.signUp" class="fa fa-square-o"></span>
@@ -98,6 +107,7 @@
                    <span ng-if="checkbox.wishes" class="fa fa-check-square-o"></span>
                 </span>Wishes
             </label>
+-->
         </div>
     </div>
 </div>
