@@ -12,6 +12,13 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
 
     $scope.reports = [
         {
+            display: false,
+            name: '',
+            data: [],
+            cumulativeData: [],
+            color: "#9C27B0"
+        },
+        {
             display: true,
             name: '',
             data: [],
@@ -116,18 +123,6 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
     }
 
     generateReport();
-
-    $scope.$watch('checkbox', function(newCheckbox){
-        console.log(newCheckbox);
-    }, true);
-
-    $scope.checkbox = {
-        signUp: true,
-        requests: false,
-        leases: false,
-        items: true,
-        wishes: false
-    };
 
     $scope.onClick = function (points, evt) {
         console.log(points, evt);
