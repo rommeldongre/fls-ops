@@ -4,49 +4,49 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', function ($scope, 
     $scope.ticket = "Hello World!!";
 
     $scope.addTicketType = function () {
-        ticketsApi.addTicketType({
-            ticketType: "NORMAL",
-            script: "This is cool!!"
-        }).then(
-            function (res) {
-                var response = res.data;
-                console.log(response);
-            },
-            function (response) {
-                console.log(response);
-            }
-        );
+//        ticketsApi.addTicketType({
+//            ticketType: "NORMAL",
+//            script: "This is cool!!"
+//        }).then(
+//            function (res) {
+//                var response = res.data;
+//                console.log(response);
+//            },
+//            function (response) {
+//                console.log(response);
+//            }
+//        );
     }
 
     $scope.addTicket = function () {
-        ticketsApi.addTicket({
-            ticketUserId: "ankit@greylabs.org",
-            dueDate: null,
-            ticketType: "GENERAL"
-        }).then(
-            function (res) {
-                var response = res.data;
-                console.log(response);
-            },
-            function (response) {
-                console.log(response);
-            }
-        );
+//        ticketsApi.addTicket({
+//            ticketUserId: "ankit@greylabs.org",
+//            dueDate: null,
+//            ticketType: "GENERAL"
+//        }).then(
+//            function (res) {
+//                var response = res.data;
+//                console.log(response);
+//            },
+//            function (response) {
+//                console.log(response);
+//            }
+//        );
     }
 
     $scope.addNote = function () {
-        ticketsApi.addNote({
-            note: "This is a note",
-            ticketId: 3
-        }).then(
-            function (res) {
-                var response = res.data;
-                console.log(response);
-            },
-            function (response) {
-                console.log(response);
-            }
-        );
+//        ticketsApi.addNote({
+//            note: "This is a note",
+//            ticketId: 3
+//        }).then(
+//            function (res) {
+//                var response = res.data;
+//                console.log(response);
+//            },
+//            function (response) {
+//                console.log(response);
+//            }
+//        );
     }
 
 }]);
