@@ -176,5 +176,29 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', function($sc
 	$scope.loadNextCredit = function(){
         getEngagements(user_id,lastLeadId);
     }
+	
+	$scope.exportUsers = function(){
+			
+		var verification = document.createElement("input");
+		verification.type = "hidden";
+		verification.name = "verification";
+		verification.value = Verification;
+		
+		var liveStatus = document.createElement("input");
+		liveStatus.type = "hidden";
+		liveStatus.name = "liveStatus";
+		liveStatus.value = LiveStatus;
+		
+		var userStatus = document.createElement("input");
+		userStatus.type = "hidden";
+		userStatus.name = "userStatus";
+		userStatus.value = UserStatus;
+				
+		var f = document.getElementById("exportUsers");
+		f.appendChild(verification);
+		f.appendChild(liveStatus);
+		f.appendChild(userStatus);
+		f.submit();
+	}
     
 }]);

@@ -46,6 +46,11 @@
                     <li><a href="" ng-click="changeUserStatusFilter(0, 'Selfie')">Selfie</a></li>
                 </ul>
             </div>
+			<div class="input-group-btn" style="padding-left:20px;">
+				<form id="exportUsers" action="/ExportUsers" method="POST" style="">
+                <button class="btn btn-primary btn-fill" type="button" ng-click="exportUsers()"><i class="fa fa-download" aria-hidden="true"></i> Export Users</button>
+				</form>
+            </div>
         </div>
     </div>
 </div>
