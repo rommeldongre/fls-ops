@@ -76,6 +76,11 @@ myApp.config(function($routeProvider, ChartJsProvider){
         controller : 'reportsCtrl'
     })
 
+    .when('/tickets', {
+        templateUrl : 'tickets.html',
+        controller : 'ticketsCtrl'
+    })
+
     .otherwise({redirectTo : '/'});
 
     ChartJsProvider.setOptions({ colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });

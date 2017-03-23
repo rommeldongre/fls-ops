@@ -80,10 +80,11 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2" ng-if="isAdmin">
+            <div class="col-sm-3 col-md-2" ng-if="isAdmin" style="border-right:1px solid #ccc;">
 
-                <ul class="nav nav-sidebar">
+                <ul class="nav nav-sidebar text-center">
                     <li><a href="#/reports">Reports</a></li>
+                    <li><a href="#/tickets">Tickets</a></li>
                     <li><a href="#/events">Events</a></li>
                     <li><a href="#/leases">Leases</a></li>
                     <li><a href="#/requests">Requests</a></li>
@@ -111,7 +112,6 @@
                 weekStart: 1,
                 color: '{color}'
             });
-//            $(':checkbox').checkbox();
         }
     </script>
 
@@ -129,6 +129,7 @@
     <script src="js/notification.js"></script>
     <script src="js/adminpages.js"></script>
     <script src="js/reports.js"></script>
+    <script src="js/tickets.js"></script>
 
     <script src="js/load-image.all.min.js"></script>
 

@@ -16,42 +16,42 @@ reportsApp.controller('reportsCtrl', ['$scope', 'reportsApi', '$filter', functio
             name: '',
             data: [],
             cumulativeData: [],
-            color: "#9C27B0"
+            color: "#ebab76"
         },
         {
             display: true,
             name: '',
             data: [],
             cumulativeData: [],
-            color: "#f44336"
+            color: "#ff6666"
         },
         {
             display: false,
             name: '',
             data: [],
             cumulativeData: [],
-            color: "#8BC34A"
+            color: "#008080"
         },
         {
             display: false,
             name: '',
             data: [],
             cumulativeData: [],
-            color: "#2196F3"
+            color: "#8bc5c5"
         },
         {
             display: true,
             name: '',
             data: [],
             cumulativeData: [],
-            color: "#FFEB3B"
+            color: "#2c4caa"
         },
         {
             display: false,
             name: '',
             data: [],
             cumulativeData: [],
-            color: "#9E9E9E"
+            color: "#29083c"
         }
     ];
 
