@@ -81,6 +81,11 @@ myApp.config(function($routeProvider, ChartJsProvider){
         controller : 'ticketsCtrl'
     })
 
+    .when('/ticket/:id?', {
+        templateUrl : 'ticket.html',
+        controller : 'ticketCtrl'
+    })
+
     .otherwise({redirectTo : '/'});
 
     ChartJsProvider.setOptions({ colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });

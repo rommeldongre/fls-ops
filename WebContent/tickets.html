@@ -26,7 +26,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="ticket in tickets">
-                            <td class="text-center">{{ticket.ticketId}}</td>
+                            <td class="text-center"><a href="#/ticket/{{ticket.ticketId}}">{{ticket.ticketId}}</a></td>
                             <td class="text-center"><img ng-src="{{(ticket.profilePic === '' || ticket.profilePic === null || ticket.profilePic === NULL || ticket.profilePic === 'null') ? 'images/imgplaceholder.png' : ticket.profilePic}}" style="width:50px;"></td>
                             <td class="text-center">{{ticket.ticketUserId}}</td>
                             <td class="text-center">{{ticket.ticketDate | date}}</td>
