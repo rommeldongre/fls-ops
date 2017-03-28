@@ -5,6 +5,34 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', '$routeParams', fu
     var uid = $routeParams.uid;
     var userId = null;
 
+    var limit = 5;
+    var offset = 0;
+    $scope.tickets = [];
+
+    $scope.tab = {
+        status: 'DONE'
+    };
+
+    var getTickets = function () {
+        ticketsApi.getTicketsByX({
+            ticketUserId: userId,
+            filterStatus: $scope.tab.status,
+            cookie: offset,
+            limit: limit
+        }).then(
+            function (res) {
+                var response = res.data;
+                if (response.code == 0) {
+                    $scope.tickets.push.apply($scope.tickets, response.tickets);
+                    offset = response.offset;
+                }
+            },
+            function (response) {
+                console.log(response);
+            }
+        );
+    }
+
     var getUserId = function () {
         if(uid != undefined){
             var req = {
@@ -30,40 +58,15 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', '$routeParams', fu
                 error:function() {
                 }
             });
+        } else {
+            getTickets();
         }
     }
 
-    var limit = 5;
-    var offset = 0;
-
-    $scope.tab = {
-        status: 'DONE'
-    };
-
     var initPopulate = function () {
-        getUserId();
         offset = 0;
         $scope.tickets = [];
-    }
-
-    var getTickets = function () {
-        ticketsApi.getTicketsByX({
-            ticketUserId: userId,
-            filterStatus: $scope.tab.status,
-            cookie: offset,
-            limit: limit
-        }).then(
-            function (res) {
-                var response = res.data;
-                if (response.code == 0) {
-                    $scope.tickets.push.apply($scope.tickets, response.tickets);
-                    offset = response.offset;
-                }
-            },
-            function (response) {
-                console.log(response);
-            }
-        );
+        getUserId();
     }
 
     $scope.loadMore = function() {

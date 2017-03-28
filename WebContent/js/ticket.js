@@ -13,6 +13,8 @@ ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', funct
             var response = res.data;
             if (response.code == 0) {
                 $scope.ticket = response;
+                $scope.ticket.ticketId = id;
+                console.log($scope.ticket);
             }
         }, function (error) {
             console.log(error);

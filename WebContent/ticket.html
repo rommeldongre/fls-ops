@@ -1,6 +1,84 @@
-<div class="row" style="display: flex;flex-wrap: wrap;text-align:center;">
-    <div class="col-lg-4 col-md-4">
-        <user-badges user-id="ticket.ticketUserId"></user-badges>
+<div class="container-fluid" style="min-height:500px;">
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <h2>Ticket #{{ticket.ticketId}}</h2>
+        </div>
+        <div class="col-lg-4 col-md-4" style="margin-top:1%;">
+            <h4>Creation Date - {{ticket.ticketDate | date}}</h4>
+        </div>
+        <div class="col-lg-4 col-md-4" style="margin-top:1%;">
+            <h4>Last Modified - {{ticket.ticketDate | date}}</h4>
+        </div>
     </div>
-    <div class="col-lg-8 col-md-8"></div>
+    <hr/>
+    <div class="row" style="display: flex;flex-wrap: wrap;text-align:center;">
+        <div class="col-lg-4 col-md-4 card">
+            <div class="content">
+                <img class="avatar border-gray" ng-src="https://lh3.googleusercontent.com/-f9S4eUCWW3A/AAAAAAAAAAI/AAAAAAAAAAA/AAomvV0gEGAqLQBUxjaO8dT5kogG4vqlYQ/s96-c/photo.jpg" style="width:150px;height:150px;" alt="Profile Pic">
+                <h3 class="title" style="word-wrap: break-word;">
+                    <strong>Ankit Karnany</strong>
+                </h3>
+                <div style="font-size:large;margin:5px;">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>Pune
+                </div>
+                <user-badges user-id="ticket.ticketUserId"></user-badges>
+            </div>
+        </div>
+        <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 card">
+            <div class="content">
+                <h4>{{ticket.ticketType}}</h4>
+                <div class="social-badges" style="text-align:center;font-size:large;margin: 0px;width: 100%;">askldasldlkas dda sd as d asdasd asda dasd as d asd asd asd as d s ad asd as d asd asds f w e f fsdfds f sd fdsf sd f ds sd fsd fds f dsf </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row" style="display: flex;flex-wrap: wrap;text-align:center;">
+        <div class="col-lg-4 col-md-4">
+            <h3>Due Date</h3>
+            <div id="name" class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-fill btn-primary">Save Due Date</button>
+                </span>
+            </div><br/>
+            <h3>Status</h3>
+            <div id="name" class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-fill ng-class:{'btn-success':ticket.ticketStatus=='OPEN', 'btn-danger':ticket.ticketStatus=='CLOSED'}">{{ticket.ticketStatus}}</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <h3>Create Note</h3>
+            <textarea class="form-control" ng-model="note" ng-trim="false" maxlength="1000" style="height:176px;"></textarea>
+            <span>{{500 - note.length}} left</span>
+        </div>
+    </div>
+    <hr/>
+    <h3>Notes</h3>
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="note in ticket.notes">
+                            <td class="text-center">{{note.date | date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="note in ticket.notes">
+                            <td class="text-center">{{note.note}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
