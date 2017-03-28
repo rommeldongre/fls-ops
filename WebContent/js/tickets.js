@@ -1,6 +1,37 @@
 var ticketsApp = angular.module('myApp');
 
-ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', function ($scope, ticketsApi) {
+ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', '$routeParams', function ($scope, ticketsApi, $routeParams) {
+
+    var uid = $routeParams.uid;
+    var userId = null;
+
+    var getUserId = function () {
+        if(uid != undefined){
+            var req = {
+                table: "users",
+                operation: "userfromuid",
+                row: {
+                    userUid: uid
+                }
+            }
+            $.ajax({
+                url: '/AdminOps',
+                type:'get',
+                data: {req: JSON.stringify(req)},
+                contentType:"application/json",
+                dataType: "json",
+                success: function(response) {
+                    if(response.Code == 0){
+                        var obj = JSON.parse(response.Message);
+                        userId = obj.userId;
+                        getTickets();
+                    }
+                },
+                error:function() {
+                }
+            });
+        }
+    }
 
     var limit = 5;
     var offset = 0;
@@ -10,14 +41,14 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', function ($scope, 
     };
 
     var initPopulate = function () {
+        getUserId();
         offset = 0;
         $scope.tickets = [];
-        getTickets();
     }
 
     var getTickets = function () {
         ticketsApi.getTicketsByX({
-            ticketUserId: null,
+            ticketUserId: userId,
             filterStatus: $scope.tab.status,
             cookie: offset,
             limit: limit
@@ -38,10 +69,6 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', function ($scope, 
     $scope.loadMore = function() {
         getTickets();
     }
-
-    $scope.$watch('tab.status', function(){
-        initPopulate();
-    });
 
     $scope.addTicketType = function () {
         //        ticketsApi.addTicketType({
@@ -102,6 +129,10 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', function ($scope, 
             }
         );
     }
+
+    $scope.$watch('tab.status', function(){
+        initPopulate();
+    });
 
 }]);
 

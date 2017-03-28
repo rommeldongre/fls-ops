@@ -76,7 +76,7 @@ myApp.config(function($routeProvider, ChartJsProvider){
         controller : 'reportsCtrl'
     })
 
-    .when('/tickets', {
+    .when('/tickets/:uid?', {
         templateUrl : 'tickets.html',
         controller : 'ticketsCtrl'
     })

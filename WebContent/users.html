@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-	<div class="col-lg-1 col-md-1">
+    <div class="col-lg-1 col-md-1">
         <span>User Status Filter:</span>
     </div>
     <div class="col-lg-2 col-md-2">
@@ -46,10 +46,10 @@
                     <li><a href="" ng-click="changeUserStatusFilter(0, 'Selfie')">Selfie</a></li>
                 </ul>
             </div>
-			<div class="input-group-btn" style="padding-left:20px;">
-				<form id="exportUsers" action="/ExportUsers" method="POST" style="">
-                <button class="btn btn-primary btn-fill" type="button" ng-click="exportUsers()"><i class="fa fa-download" aria-hidden="true"></i> Export Users</button>
-				</form>
+            <div class="input-group-btn" style="padding-left:20px;">
+                <form id="exportUsers" action="/ExportUsers" method="POST" style="">
+                    <button class="btn btn-primary btn-fill" type="button" ng-click="exportUsers()"><i class="fa fa-download" aria-hidden="true"></i> Export Users</button>
+                </form>
             </div>
         </div>
     </div>
@@ -59,8 +59,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-				<th class="text-center">Sign Up Date</th>
-				<th class="text-center">Fee Expiry Date</th>
+                <th class="text-center">Sign Up Date</th>
+                <th class="text-center">Fee Expiry Date</th>
+                <th class="text-center">Tickets</th>
                 <th>User Id</th>
                 <th>Profile Pic</th>
                 <th class="text-center">Full Name</th>
@@ -75,8 +76,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in users">
-				<td>{{user.signupDate | date}}</td>
-				<td>{{user.userFeeExpiry | date}}</td>
+                <td>{{user.signupDate | date}}</td>
+                <td>{{user.userFeeExpiry | date}}</td>
+                <td style="display: flex;">
+                    <a href="#/tickets/{{user.userUid}}" class="btn btn-primary btn-simple btn-xs btn-tooltip" data-toggle="tooltip" data-placement="top" title="View existing tickets"><i class="fa fa-list" aria-hidden="true"></i></a>
+                    <a href="" class="btn btn-primary btn-simple btn-xs btn-tooltip" data-toggle="tooltip" data-placement="top" title="Create a ticket"><i class="fa fa-plus"></i></a>
+                </td>
                 <td>{{user.userId}}</td>
                 <td><img ng-src="{{(user.profilePic === '' || user.profilePic === null || user.profilePic === NULL || user.profilePic === 'null') ? 'images/imgplaceholder.png' : user.profilePic}}" style="width:50px;"></td>
                 <td class="text-center">{{user.fullName}}</td>
@@ -85,16 +90,16 @@
                 <td class="text-center"><a class="btn btn-primary btn-simple" ng-click="showCredits($index)"><u>{{user.credit}}</u></a></td>
                 <td class="text-center"><img ng-src="{{(user.photoId === '' || user.photoId === null || user.photoId === NULL || user.photoId === 'null') ? 'images/imgplaceholder.png' : user.photoId}}" style="width:50px;"></td>
                 <td class="td-actions text-center">
-                    <button type="button" rel="tooltip" title="User's Verification" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.verification==1),'btn-danger':(user.verification==0)}"  ng-click="changeVerification($index)">
+                    <button type="button" rel="tooltip" title="User's Verification" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.verification==1),'btn-danger':(user.verification==0)}" ng-click="changeVerification($index)">
                         <i>{{(user.verification == 0) ? 'Not Verified' : 'Verified'}}</i>
                     </button></td>
                 <td class="td-actions text-center">
-                    <button type="button" rel="tooltip" title="User's Live Status" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.liveStatus==1),'btn-danger':(user.liveStatus==0)}"  ng-click="changeLiveStatus($index)">
+                    <button type="button" rel="tooltip" title="User's Live Status" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.liveStatus==1),'btn-danger':(user.liveStatus==0)}" ng-click="changeLiveStatus($index)">
                         <i>{{(user.liveStatus == 0) ? 'On Hold' : 'Live'}}</i>
                     </button>
                 </td>
                 <td class="text-center">{{user.status}}</td>
-              </tr>
+            </tr>
         </tbody>
     </table>
     <ul class="pagination pull-right">
@@ -103,5 +108,3 @@
         <li ng-click="nextUsers()"><a href="">&raquo;</a></li>
     </ul>
 </div>
-
-
