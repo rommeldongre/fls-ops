@@ -1,6 +1,6 @@
 var ticketApp = angular.module('myApp');
 
-ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', function ($scope, ticketApi, $routeParams) {
+ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'modalService', function ($scope, ticketApi, $routeParams, modalService) {
 
     var id = $routeParams.id;
 
@@ -21,6 +21,39 @@ ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', funct
         }, function (error) {
             console.log(error);
         });
+    }
+
+    $scope.toggleStatus = function () {
+        var status = 'CLOSED',
+            message = "Are you sure you want to close this ticket?";
+        if ($scope.ticket.status == 'CLOSED') {
+            status = 'OPEN';
+            message = "Are you sure you want to open this ticket?";
+        }
+        modalService.showModal({}, {
+            bodyText: message,
+            actionButtonText: 'OK'
+        }).then(
+            function (r) {
+                ticketApi.toggleStatus({
+                    ticketId: $scope.ticket.ticketId,
+                    ticketStatus: status
+                }).then(
+                    function(res) {
+                        var response = res.data;
+                        if(response.code == 0) {
+                            $scope.ticket.status = status;
+                        }
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+            },
+            function (e) {
+                console.log(e);
+            }
+        );
     }
 
 }]);
@@ -138,9 +171,14 @@ ticketApp.service('ticketApi', ['$http', 'loginService', '$q', function ($http, 
         return $http.post('/GetTicketDetails', JSON.stringify(req));
     }
 
+    this.toggleStatus = function (params) {
+        angular.extend(req, params);
+        return $http.post('/ToggleTicketStatus', JSON.stringify(req));
+    }
+
     this.getUserId = function (userUid) {
         var deferred = $q.defer();
-        if(userUid != undefined){
+        if (userUid != undefined) {
             var req = {
                 table: "users",
                 operation: "userfromuid",
@@ -150,19 +188,21 @@ ticketApp.service('ticketApi', ['$http', 'loginService', '$q', function ($http, 
             }
             $.ajax({
                 url: '/AdminOps',
-                type:'get',
-                data: {req: JSON.stringify(req)},
-                contentType:"application/json",
+                type: 'get',
+                data: {
+                    req: JSON.stringify(req)
+                },
+                contentType: "application/json",
                 dataType: "json",
-                success: function(response) {
-                    if(response.Code == 0){
+                success: function (response) {
+                    if (response.Code == 0) {
                         var obj = JSON.parse(response.Message);
                         deferred.resolve(obj.userId);
                     } else {
                         deferred.reject(null);
                     }
                 },
-                error:function() {
+                error: function () {
                     deferred.reject(null);
                 }
             });

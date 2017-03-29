@@ -50,7 +50,7 @@
                     <label style="margin-top:9%;">Ticket Status</label>
                 </div>
                 <div class="col-lg-8 col-md-8">
-                    <button class="btn btn-fill btn-block ng-class:{'btn-success':ticket.status=='OPEN', 'btn-danger':ticket.status=='CLOSED'}">{{ticket.status}}</button>
+                    <button class="btn btn-fill btn-block ng-class:{'btn-success':ticket.status=='OPEN', 'btn-danger':ticket.status=='CLOSED'}" ng-click="toggleStatus()">{{ticket.status}}</button>
                 </div>
             </div>
         </div>
