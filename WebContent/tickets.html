@@ -1,7 +1,7 @@
 <div class="row" style="display:flex;flex-wrap:wrap;">
-    <span class="col-lg-1 col-md-1" style="font-size: xx-large;">Tickets</span>
-    <div class="col-lg-11 col-md-11">
-        <ul class="nav nav-pills" style="float:right;">
+    <span class="col-lg-5 col-md-5" style="font-size: x-large;">Tickets <span ng-if="userName != null">of {{userName}}</span></span>
+    <div class="col-lg-7 col-md-7">
+        <ul class="nav nav-pills">
             <li class="ng-class:{'active': tab.status=='DONE'}"><a ng-click="tab.status='DONE'" href="">Done</a></li>
             <li class="ng-class:{'active': tab.status=='DUE'}"><a ng-click="tab.status='DUE'" href="">Due</a></li>
             <li class="ng-class:{'active': tab.status=='PENDING'}"><a ng-click="tab.status='PENDING'" href="">Pending</a></li>

@@ -8,9 +8,10 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', '$routeParams', fu
     var limit = 5;
     var offset = 0;
     $scope.tickets = [];
+    $scope.userName = null;
 
     $scope.tab = {
-        status: 'DONE'
+        status: 'DUE'
     };
 
     var getTickets = function () {
@@ -52,6 +53,9 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', '$routeParams', fu
                     if(response.Code == 0){
                         var obj = JSON.parse(response.Message);
                         userId = obj.userId;
+                        $scope.$apply(function(){
+                            $scope.userName = obj.userName;
+                        });
                         getTickets();
                     }
                 },
