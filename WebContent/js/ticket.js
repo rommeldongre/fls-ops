@@ -79,6 +79,33 @@ ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'moda
         );
     }
 
+    $scope.saveNote = function (note) {
+        if (note) {
+            ticketApi.addNote({
+                ticketId: $scope.ticket.ticketId,
+                note: note
+            }).then(
+                function (res) {
+                    var response = res.data;
+                    if (response.code == 0) {
+                        modalService.showModal({}, {
+                            bodyText: "Updated due date successfully!!",
+                            actionButtonText: 'OK'
+                        }).then(function (res) {window.location.reload();}, function (e) {});
+                    }
+                },
+                function (error) {
+                    console.log(error);
+                }
+            );
+        } else {
+            modalService.showModal({}, {
+                bodyText: "Please enter a valid note!!",
+                actionButtonText: 'OK'
+            }).then(function (r) {}, function (e) {});
+        }
+    }
+
 }]);
 
 ticketApp.service('ticketApi', ['$http', 'loginService', '$q', function ($http, loginService, $q) {

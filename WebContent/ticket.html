@@ -58,7 +58,7 @@
             <h3>Create Note</h3>
             <textarea class="form-control" ng-model="note" ng-trim="false" maxlength="500" style="height:175px;"></textarea>
             <span>{{500 - note.length}} left</span><br/>
-            <button class="btn btn-info btn-fill btn-block">Save Note</button>
+            <button class="btn btn-info btn-fill btn-block" ng-click="saveNote(note)">Save Note</button>
         </div>
     </div>
     <hr/>
