@@ -1,6 +1,6 @@
 var ticketApp = angular.module('myApp');
 
-ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'modalService', function ($scope, ticketApi, $routeParams, modalService) {
+ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'modalService', '$filter', function ($scope, ticketApi, $routeParams, modalService, $filter) {
 
     var id = $routeParams.id;
 
@@ -39,13 +39,13 @@ ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'moda
                     ticketId: $scope.ticket.ticketId,
                     ticketStatus: status
                 }).then(
-                    function(res) {
+                    function (res) {
                         var response = res.data;
-                        if(response.code == 0) {
+                        if (response.code == 0) {
                             $scope.ticket.status = status;
                         }
                     },
-                    function(error) {
+                    function (error) {
                         console.log(error);
                     }
                 );
@@ -54,6 +54,95 @@ ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'moda
                 console.log(e);
             }
         );
+    }
+
+    $scope.saveDueDate = function () {
+        ticketApi.updateDueDate({
+            ticketId: $scope.ticket.ticketId,
+            dueDate: $filter('date')(new Date(Date.parse($scope.ticket.dueDate)), 'yyyy-MM-dd')
+        }).then(
+            function (res) {
+                var response = res.data;
+                if (response.code == 0) {
+                    modalService.showModal({}, {
+                        bodyText: "Updated due date successfully!!",
+                        actionButtonText: 'OK'
+                    }).then(
+                        function (res) {},
+                        function (e) {}
+                    );
+                }
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
+    }
+
+}]);
+
+ticketApp.service('ticketApi', ['$http', 'loginService', '$q', function ($http, loginService, $q) {
+
+    var req = {
+        userId: loginService.user,
+        accessToken: loginService.userAccessToken
+    }
+
+    this.addNote = function (params) {
+        angular.extend(req, params);
+        return $http.post('/AddNote', JSON.stringify(req));
+    }
+
+    this.getTicketDetails = function (params) {
+        angular.extend(req, params);
+        return $http.post('/GetTicketDetails', JSON.stringify(req));
+    }
+
+    this.toggleStatus = function (params) {
+        angular.extend(req, params);
+        return $http.post('/ToggleTicketStatus', JSON.stringify(req));
+    }
+
+    this.updateDueDate = function (params) {
+        angular.extend(req, params);
+        return $http.post('/ChangeTicketDueDate', JSON.stringify(req));
+    }
+
+    this.getUserId = function (userUid) {
+        var deferred = $q.defer();
+        if (userUid != undefined) {
+            var req = {
+                table: "users",
+                operation: "userfromuid",
+                row: {
+                    userUid: userUid
+                }
+            }
+            $.ajax({
+                url: '/AdminOps',
+                type: 'get',
+                data: {
+                    req: JSON.stringify(req)
+                },
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Code == 0) {
+                        var obj = JSON.parse(response.Message);
+                        deferred.resolve(obj.userId);
+                    } else {
+                        deferred.reject(null);
+                    }
+                },
+                error: function () {
+                    deferred.reject(null);
+                }
+            });
+        } else {
+            deferred.reject(null);
+        }
+
+        return deferred.promise;
     }
 
 }]);
@@ -138,79 +227,3 @@ ticketApp.directive('userBadges', function () {
 
     };
 });
-
-ticketApp.service('ticketApi', ['$http', 'loginService', '$q', function ($http, loginService, $q) {
-
-    var req = {
-        userId: loginService.user,
-        accessToken: loginService.userAccessToken
-    }
-
-    this.addTicketType = function (params) {
-        angular.extend(req, params);
-        return $http.post('/AddTicketType', JSON.stringify(req));
-    }
-
-    this.addTicket = function (params) {
-        angular.extend(req, params);
-        return $http.post('/AddTicket', JSON.stringify(req));
-    }
-
-    this.addNote = function (params) {
-        angular.extend(req, params);
-        return $http.post('/AddNote', JSON.stringify(req));
-    }
-
-    this.getTicketsByX = function (params) {
-        angular.extend(req, params);
-        return $http.post('/GetTicketsByX', JSON.stringify(req));
-    }
-
-    this.getTicketDetails = function (params) {
-        angular.extend(req, params);
-        return $http.post('/GetTicketDetails', JSON.stringify(req));
-    }
-
-    this.toggleStatus = function (params) {
-        angular.extend(req, params);
-        return $http.post('/ToggleTicketStatus', JSON.stringify(req));
-    }
-
-    this.getUserId = function (userUid) {
-        var deferred = $q.defer();
-        if (userUid != undefined) {
-            var req = {
-                table: "users",
-                operation: "userfromuid",
-                row: {
-                    userUid: userUid
-                }
-            }
-            $.ajax({
-                url: '/AdminOps',
-                type: 'get',
-                data: {
-                    req: JSON.stringify(req)
-                },
-                contentType: "application/json",
-                dataType: "json",
-                success: function (response) {
-                    if (response.Code == 0) {
-                        var obj = JSON.parse(response.Message);
-                        deferred.resolve(obj.userId);
-                    } else {
-                        deferred.reject(null);
-                    }
-                },
-                error: function () {
-                    deferred.reject(null);
-                }
-            });
-        } else {
-            deferred.reject(null);
-        }
-
-        return deferred.promise;
-    }
-
-}]);
