@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Save Ticket Type</title>
+<script type="text/javascript" src="../js/jquery-1.7.min.js"></script>
+<script type="text/javascript">
+    var UserId = null;
+
+    start = function(){
+        document.getElementById("userId").value = localStorage.getItem("adminloggedin");
+        document.getElementById("accessToken").value = localStorage.getItem("adminloggedinAccess");
+    }
+
+	getData = function (){
+        UserId = document.getElementById("userId").value;
+		if (UserId ==='') UserId = null;
+
+        var AccessToken = document.getElementById("accessToken").value;
+
+        var TicketType = document.getElementById("type").value;
+        if (TicketType ==='') TicketType = null;
+
+        var TicketScript = document.getElementById("script").value;
+        if (TicketScript == '') TicketScript = null;
+
+        var TicketDue = document.getElementById("due").value;
+        if (TicketDue == undefined) TicketDue = 1;
+
+
+        req = {
+            userId: UserId,
+            accessToken: AccessToken,
+            ticketType: TicketType.toUpperCase(),
+            script: TicketScript,
+            dueDate: TicketDue
+        }
+
+        saveTicketType(req);
+	};
+
+	saveTicketType = function(req) {
+		$.ajax({
+			url: '/AddTicketType',
+			type: 'post',
+			data: JSON.stringify(req),
+			contentType:"application/json",
+			dataType:"json",
+
+			success: function(response) {
+                document.getElementById("code").value = response.code;
+                document.getElementById("message").value = response.message;
+			},
+
+			error: function() {
+				alert('Not Working');
+			}
+		});
+	};
+
+</script>
+</head>
+<body onload="start()">
+<h1>Save Ticket Type Form</h1>
+	<form>
+        User Id : <input type="text" name="userId" id="userId"><br/><br/>
+		Access Token: <input type="text" name="accessToken" id="accessToken" ><br/><br/>
+		Ticket Type: <input type="text" name="type" id="type" ><br/><br/>
+        Ticket Script: <textarea type="text" name="script" id="script" ></textarea><br/><br/>
+		Default Due Days: <input type="number" name="due" id="due" ><br/><br/>
+		<input type="button" value="Save Ticket Type" onclick="getData()">
+    </form>
+
+    <h1>OUTPUT</h1>
+	Code : <input type="text" name="code" id="code"><br/><br/>
+	Message : <input type="text" name="message" id="message"><br/><br/>
+	<br/>
+	<h3><A href="../adminPage411016.html">INDEX</A></h3>
+</body>
+</html>

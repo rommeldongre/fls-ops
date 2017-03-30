@@ -215,6 +215,7 @@ myApp.service('modalService', ['$uibModal', 'loginService', function ($uibModal,
             tempModalDefaults.controller = function ($scope, $uibModalInstance) {
                 $scope.submit = {};
 
+            if(tempModalOptions.editingItem){
                 $scope.uploadImage = function(file){
                     var reader = new FileReader();
                     reader.onload = function(event) {
@@ -358,11 +359,12 @@ myApp.service('modalService', ['$uibModal', 'loginService', function ($uibModal,
                 }
 
                 // called on the page load
-                populateLeaseTerm('');
+                populateLeaseTerm('0');
 
                 $scope.leaseTermSelected = function(l){
                     $scope.submit.leaseTerm = l;
                 }
+            }
 
                 $scope.modalOptions = tempModalOptions;
                 $scope.modalOptions.ok = function (result) {

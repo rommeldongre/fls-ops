@@ -100,7 +100,7 @@
         </div>
         <div class="col-lg-4 col-md-4">
             <div class="dropdown" ng-init="submit.type = modalOptions.ticketTypes[0].type; submit.dueDate = modalOptions.ticketTypes[0].due">
-                <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{modalOptions.ticketTypes[0].type}} <span class="caret"></span>
+                <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{submit.type}} <span class="caret"></span>
             </button>
                 <ul class="dropdown-menu">
                     <li ng-repeat="t in modalOptions.ticketTypes">
