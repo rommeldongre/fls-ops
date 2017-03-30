@@ -90,25 +90,20 @@
     <!-- For ticket creation functionality in the modal -->
     <div class="row" ng-if="modalOptions.ticketCreation">
         <div class="col-lg-2 col-md-2">
-            <label>Due Date</label>
-        </div>
-        <div class="col-lg-4 col-md-4">
-            <input type="date" ng-model="submit.dueDate">
-        </div>
-        <div class="col-lg-2 col-md-2">
             <label>Ticket Type</label>
         </div>
         <div class="col-lg-4 col-md-4">
-            <div class="dropdown" ng-init="submit.type = modalOptions.ticketTypes[0].type; submit.dueDate = modalOptions.ticketTypes[0].due">
+            <div class="dropdown" ng-init="submit.type = modalOptions.ticketTypes[0].type; submit.dueDate = modalOptions.ticketTypes[0].due; submit.script = modalOptions.ticketTypes[0].script">
                 <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{submit.type}} <span class="caret"></span>
             </button>
                 <ul class="dropdown-menu">
                     <li ng-repeat="t in modalOptions.ticketTypes">
-                        <a href="" ng-click="submit.type = t.type; submit.dueDate = t.due">{{t.type}}</a>
+                        <a href="" ng-click="submit.type = t.type; submit.dueDate = t.due; submit.script = t.script">{{t.type}}</a>
                     </li>
                 </ul>
             </div>
         </div>
+        <div class="col-lg-6 col-md-6">{{submit.script}}</div>
     </div>
     <!-- Ticket creation functionality end -->
 

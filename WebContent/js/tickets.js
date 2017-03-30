@@ -77,21 +77,6 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', '$routeParams', fu
         getTickets();
     }
 
-    $scope.addTicketType = function () {
-        //        ticketsApi.addTicketType({
-        //            ticketType: "NORMAL",
-        //            script: "This is cool!!"
-        //        }).then(
-        //            function (res) {
-        //                var response = res.data;
-        //                console.log(response);
-        //            },
-        //            function (response) {
-        //                console.log(response);
-        //            }
-        //        );
-    }
-
     $scope.$watch('tab.status', function(){
         initPopulate();
     });
@@ -106,8 +91,8 @@ ticketsApp.service('ticketsApi', ['$http', 'loginService', function ($http, logi
     }
 
     this.getTicketsByX = function (params) {
-        angular.extend(req, params);
-        return $http.post('/GetTicketsByX', JSON.stringify(req));
+        angular.extend(params, req);
+        return $http.post('/GetTicketsByX', JSON.stringify(params));
     }
 
 }]);

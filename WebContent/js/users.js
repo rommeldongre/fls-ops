@@ -280,8 +280,8 @@ usersApp.service('ticketCreateApi', ['$http', 'loginService', function ($http, l
     }
 
     this.addTicket = function (params) {
-        angular.extend(req, params);
-        return $http.post('/AddTicket', JSON.stringify(req));
+        angular.extend(params, req);
+        return $http.post('/AddTicket', JSON.stringify(params));
     }
 
     this.getTicketTypes = function () {

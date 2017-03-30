@@ -87,10 +87,7 @@ ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'moda
                 function (res) {
                     var response = res.data;
                     if (response.code == 0) {
-                        modalService.showModal({}, {
-                            bodyText: "Updated due date successfully!!",
-                            actionButtonText: 'OK'
-                        }).then(function (res) {window.location.reload();}, function (e) {});
+                        window.location.reload();
                     }
                 },
                 function (error) {
@@ -107,7 +104,7 @@ ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'moda
 
 }]);
 
-ticketApp.service('ticketApi', ['$http', 'loginService', '$q', function ($http, loginService, $q) {
+ticketApp.service('ticketApi', ['$http', 'loginService', function ($http, loginService) {
 
     var req = {
         userId: loginService.user,
@@ -115,60 +112,23 @@ ticketApp.service('ticketApi', ['$http', 'loginService', '$q', function ($http, 
     }
 
     this.addNote = function (params) {
-        angular.extend(req, params);
-        return $http.post('/AddNote', JSON.stringify(req));
+        angular.extend(params, req);
+        return $http.post('/AddNote', JSON.stringify(params));
     }
 
     this.getTicketDetails = function (params) {
-        angular.extend(req, params);
-        return $http.post('/GetTicketDetails', JSON.stringify(req));
+        angular.extend(params, req);
+        return $http.post('/GetTicketDetails', JSON.stringify(params));
     }
 
     this.toggleStatus = function (params) {
-        angular.extend(req, params);
-        return $http.post('/ToggleTicketStatus', JSON.stringify(req));
+        angular.extend(params, req);
+        return $http.post('/ToggleTicketStatus', JSON.stringify(params));
     }
 
     this.updateDueDate = function (params) {
-        angular.extend(req, params);
-        return $http.post('/ChangeTicketDueDate', JSON.stringify(req));
-    }
-
-    this.getUserId = function (userUid) {
-        var deferred = $q.defer();
-        if (userUid != undefined) {
-            var req = {
-                table: "users",
-                operation: "userfromuid",
-                row: {
-                    userUid: userUid
-                }
-            }
-            $.ajax({
-                url: '/AdminOps',
-                type: 'get',
-                data: {
-                    req: JSON.stringify(req)
-                },
-                contentType: "application/json",
-                dataType: "json",
-                success: function (response) {
-                    if (response.Code == 0) {
-                        var obj = JSON.parse(response.Message);
-                        deferred.resolve(obj.userId);
-                    } else {
-                        deferred.reject(null);
-                    }
-                },
-                error: function () {
-                    deferred.reject(null);
-                }
-            });
-        } else {
-            deferred.reject(null);
-        }
-
-        return deferred.promise;
+        angular.extend(params, req);
+        return $http.post('/ChangeTicketDueDate', JSON.stringify(params));
     }
 
 }]);
