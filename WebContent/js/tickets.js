@@ -92,51 +92,6 @@ ticketsApp.controller('ticketsCtrl', ['$scope', 'ticketsApi', '$routeParams', fu
         //        );
     }
 
-    $scope.addTicket = function () {
-        ticketsApi.addTicket({
-            ticketUserId: "ankit@greylabs.org",
-            dueDate: null,
-            ticketType: "USER_CONTACT"
-        }).then(
-            function (res) {
-                var response = res.data;
-                console.log(response);
-            },
-            function (response) {
-                console.log(response);
-            }
-        );
-    }
-
-    $scope.addNote = function () {
-        ticketsApi.addNote({
-            note: "This is a note",
-            ticketId: 1
-        }).then(
-            function (res) {
-                var response = res.data;
-                console.log(response);
-            },
-            function (response) {
-                console.log(response);
-            }
-        );
-    }
-
-    $scope.getTicketDetails = function () {
-        ticketsApi.getTicketDetails({
-            ticketId: 1
-        }).then(
-            function (res) {
-                var response = res.data;
-                console.log(response);
-            },
-            function (response) {
-                console.log(response);
-            }
-        );
-    }
-
     $scope.$watch('tab.status', function(){
         initPopulate();
     });
@@ -150,29 +105,9 @@ ticketsApp.service('ticketsApi', ['$http', 'loginService', function ($http, logi
         accessToken: loginService.userAccessToken
     }
 
-    this.addTicketType = function (params) {
-        angular.extend(req, params);
-        return $http.post('/AddTicketType', JSON.stringify(req));
-    }
-
-    this.addTicket = function (params) {
-        angular.extend(req, params);
-        return $http.post('/AddTicket', JSON.stringify(req));
-    }
-
-    this.addNote = function (params) {
-        angular.extend(req, params);
-        return $http.post('/AddNote', JSON.stringify(req));
-    }
-
     this.getTicketsByX = function (params) {
         angular.extend(req, params);
         return $http.post('/GetTicketsByX', JSON.stringify(req));
-    }
-
-    this.getTicketDetails = function (params) {
-        angular.extend(req, params);
-        return $http.post('/GetTicketDetails', JSON.stringify(req));
     }
 
 }]);

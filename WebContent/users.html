@@ -80,7 +80,7 @@
                 <td>{{user.userFeeExpiry | date}}</td>
                 <td style="display: flex;">
                     <a href="#/tickets/{{user.userUid}}" class="btn btn-primary btn-simple btn-xs btn-tooltip" data-toggle="tooltip" data-placement="top" title="View existing tickets"><i class="fa fa-list" aria-hidden="true"></i></a>
-                    <a href="" class="btn btn-primary btn-simple btn-xs btn-tooltip" data-toggle="tooltip" data-placement="top" title="Create a ticket"><i class="fa fa-plus"></i></a>
+                    <a href="" class="btn btn-primary btn-simple btn-xs btn-tooltip" data-toggle="tooltip" data-placement="top" title="Create a ticket" ng-click="createTicket(user.userId)"><i class="fa fa-plus"></i></a>
                 </td>
                 <td>{{user.userId}}</td>
                 <td><img ng-src="{{(user.profilePic === '' || user.profilePic === null || user.profilePic === NULL || user.profilePic === 'null') ? 'images/imgplaceholder.png' : user.profilePic}}" style="width:50px;"></td>

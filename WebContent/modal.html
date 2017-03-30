@@ -9,23 +9,19 @@
             <div class="row">
                 <div class="col-xs-3">
                     <img ng-click="submit.rating=1" ng-src="{{(submit.rating==-1) ? 'images/very-unhappy-n.jpg' : ((submit.rating==1) ? 'images/very-happy-s.jpg': 'images/very-happy-us.jpg')}}" style="width:40%;text-align:center;">
-                    <br/>
-                    Very unhappy
+                    <br/> Very unhappy
                 </div>
                 <div class="col-xs-3">
                     <img ng-click="submit.rating=2" ng-src="{{(submit.rating==-1) ? 'images/unhappy-n.jpg' : ((submit.rating==2) ? 'images/unhappy-s.jpg': 'images/unhappy-us.jpg')}}" style="width:40%;text-align:center;">
-                    <br/>
-                    Unhappy
+                    <br/> Unhappy
                 </div>
                 <div class="col-xs-3">
                     <img ng-click="submit.rating=3" ng-src="{{(submit.rating==-1) ? 'images/happy-n.jpg' : ((submit.rating==3) ? 'images/happy-s.jpg': 'images/happy-us.jpg')}}" style="width:40%;text-align:center;">
-                    <br/>
-                    Happy
+                    <br/> Happy
                 </div>
                 <div class="col-xs-3">
                     <img ng-click="submit.rating=4" ng-src="{{(submit.rating==-1) ? 'images/very-happy-n.jpg' : ((submit.rating==4) ? 'images/very-happy-s.jpg': 'images/very-happy-us.jpg')}}" style="width:40%;text-align:center;">
-                    <br/>
-                    Very Happy
+                    <br/> Very Happy
                 </div>
             </div>
             <br/>
@@ -90,6 +86,32 @@
         </ul>
     </div>
     <input type="text" class="form-control" ng-if="modalOptions.submitting" ng-model="submit.status">
+
+    <!-- For ticket creation functionality in the modal -->
+    <div class="row" ng-if="modalOptions.ticketCreation">
+        <div class="col-lg-2 col-md-2">
+            <label>Due Date</label>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <input type="date" ng-model="submit.dueDate">
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <label>Ticket Type</label>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="dropdown" ng-init="submit.type = modalOptions.ticketTypes[0].type; submit.dueDate = modalOptions.ticketTypes[0].due">
+                <button type="button" class="btn btn-default btn-fill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{modalOptions.ticketTypes[0].type}} <span class="caret"></span>
+            </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="t in modalOptions.ticketTypes">
+                        <a href="" ng-click="submit.type = t.type; submit.dueDate = t.due">{{t.type}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Ticket creation functionality end -->
+
 </div>
 <div class="modal-body" ng-if="modalOptions.editingItem">
     <div class="content">
@@ -97,7 +119,7 @@
             <div class="form-group">
                 <label for="item_image" id="image_label" class="col-sm-2 control-label">Add Picture</label>
                 <div class="col-sm-10">
-                    <input type="file" accept="image/*" onchange="angular.element(this).scope().uploadPrimaryImage(files[0])"/>
+                    <input type="file" accept="image/*" onchange="angular.element(this).scope().uploadPrimaryImage(files[0])" />
                 </div>
             </div>
             <div class="form-group" ng-init="submit.image = modalOptions.item.primaryImageLink">
@@ -149,8 +171,8 @@
                 </div>
             </div>
             <div class="form-group" ng-init="submit.desc = modalOptions.item.desc">
-                <label  for="description" class="col-sm-2 control-label">Description</label>
-                <div class="col-sm-10" >
+                <label for="description" class="col-sm-2 control-label">Description</label>
+                <div class="col-sm-10">
                     <textarea ng-model="submit.desc" id="desc" style="margin-bottom:5%;" class="form-control" id="description" placeholder="Add Description"></textarea>
                 </div>
             </div>
@@ -158,6 +180,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default btn-fill" ng-if="modalOptions.showCancel" data-ng-click="modalOptions.cancel()">{{modalOptions.cancelButtonText}}</button>
+    <button class="btn btn-default btn-simple" ng-if="modalOptions.showCancel" data-ng-click="modalOptions.cancel()">{{modalOptions.cancelButtonText}}</button>
     <button class="btn btn-primary btn-fill" data-ng-click="modalOptions.ok()">{{modalOptions.actionButtonText}}</button>
 </div>

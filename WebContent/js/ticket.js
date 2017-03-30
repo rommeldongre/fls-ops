@@ -16,7 +16,6 @@ ticketApp.controller('ticketCtrl', ['$scope', 'ticketApi', '$routeParams', 'moda
                 $scope.ticket.ticketId = id;
                 $scope.ticket.dueDate = new Date(Date.parse($scope.ticket.dueDate));
                 $scope.ticket.script = $scope.ticket.script.replace(/(?:\r\n|\r|\n)/g, '<br />');
-                console.log($scope.ticket);
             }
         }, function (error) {
             console.log(error);
