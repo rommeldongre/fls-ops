@@ -162,6 +162,47 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', 'ticketCreat
             });
         }, function () {});
     }
+	
+	$scope.changeStatus = function (i) {
+        modalService.showModal({}, {
+            bodyText: "Are you sure you want to change Status of the user ",
+            showCancel: false, 
+			actionButtonText: 'OK'
+        }).then(function (result) {
+		var userStatus = $scope.users[i].status
+		var fields = userStatus.split('_');
+		if(fields[1]=="pending"){
+			userStatus = fields[0]+"_"+"activated";
+		}else{
+			userStatus = fields[0]+"_"+"pending";
+		}
+            var req = {
+                table: "users",
+                operation: "editstatus",
+                row: {
+                    userId: $scope.users[i].userId,
+                    status: userStatus
+                }
+            }
+            $.ajax({
+                url: '/AdminOps',
+                type: 'get',
+                data: {
+                    req: JSON.stringify(req)
+                },
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Code == 0) {
+						$scope.$apply(function(){  
+							$scope.users[i].status = userStatus;
+						});
+                    }
+                },
+                error: function () {}
+            });
+        }, function () {});
+    }
 
     $scope.nextUsers = function () {
         if (token != -1) {
