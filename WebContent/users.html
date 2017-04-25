@@ -98,13 +98,12 @@
                         <i>{{(user.liveStatus == 0) ? 'On Hold' : 'Live'}}</i>
                     </button>
                 </td>
-               <td class="td-actions text-center" ng-if="user.status.indexOf('email') > -1 || user.status.indexOf('mobile') > -1">
-					<button type="button" rel="tooltip" title="User's Status" class="btn btn-fill btn-xs ng-class:{'btn-success':(user.status=='email_activated' || user.status=='mobile_activated'),'btn-danger':(user.status=='email_pending' || user.status=='mobile_pending')}" ng-click="changeStatus($index)">
+               <td class="td-actions text-center" ng-if="user.status.indexOf('email_pending') > -1 || user.status.indexOf('mobile_pending') > -1">
+					<button type="button" rel="tooltip" title="User's Status" class="btn btn-fill btn-xs btn-danger" ng-click="changeStatus($index)">
                         <i>{{user.status}}</i>
                     </button>
 				</td>
-				<td class="td-actions text-center" ng-if="user.status.indexOf('google') > -1 || user.status.indexOf('facebook') > -1">{{user.status}}</td>
-				<!--<td class="text-center">{{user.status}}</td>-->
+				<td class="td-actions text-center" ng-if="user.status.indexOf('google') > -1 || user.status.indexOf('facebook') > -1 || user.status.indexOf('email_activated') > -1 || user.status.indexOf('mobile_activated') > -1">{{user.status}}</td>
             </tr>
         </tbody>
     </table>

@@ -173,33 +173,26 @@ usersApp.controller('userCtrl', ['$scope', '$http', 'modalService', 'ticketCreat
 		var fields = userStatus.split('_');
 		if(fields[1]=="pending"){
 			userStatus = fields[0]+"_"+"activated";
-		}else{
-			userStatus = fields[0]+"_"+"pending";
 		}
             var req = {
-                table: "users",
-                operation: "editstatus",
-                row: {
-                    userId: $scope.users[i].userId,
-                    status: userStatus
-                }
+				verification: $scope.users[i].userActivation 
             }
-            $.ajax({
-                url: '/AdminOps',
-                type: 'get',
-                data: {
-                    req: JSON.stringify(req)
-                },
-                contentType: "application/json",
-                dataType: "json",
-                success: function (response) {
-                    if (response.Code == 0) {
-						$scope.$apply(function(){  
-							$scope.users[i].status = userStatus;
-						});
+
+			$.ajax({
+                    url: '/Verification',
+                    type:'POST',
+                    data: JSON.stringify(req),
+                    contentType:"application/json",
+                    dataType: "JSON",
+                    success: function(response) {
+                        if(response.code == 0){
+                            $scope.$apply(function(){  
+								$scope.users[i].status = userStatus;
+							});
+                        }
+                    },
+                    error: function() {
                     }
-                },
-                error: function () {}
             });
         }, function () {});
     }
